@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomona - Brand Management Suite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/recharts@2.10.3/dist/Recharts.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #F9FAFB;
+            color: #1B2A4A;
+        }
+
+        .header {
+            background-color: #1B2A4A;
+            color: white;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: #E53935;
+        }
+
+        .header-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .header-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #ADBACE;
+        }
+
+        .header-subtitle {
+            font-size: 13px;
+            color: #8B94A8;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .badge {
+            background-color: #10B981;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .badge-dot {
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .settings-icon {
+            cursor: pointer;
+            font-size: 20px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .settings-icon:hover {
+            opacity: 1;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 24px;
+            border-bottom: 1px solid #E5E7EB;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6B7280;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+        }
+
+        .tab:hover {
+            color: #1B2A4A;
+        }
+
+        .tab.active {
+            color: #E53935;
+            border-bottom-color: #E53935;
+        }
+
+        .content {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            border: 1px solid #F0F1F3;
+            transition: box-shadow 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1B2A4A;
+            margin-bottom: 8px;
+        }
+
+        .card-detail {
+            font-size: 12px;
+            color: #9CA3AF;
+        }
+
+        .card-detail.positive {
+            color: #10B981;
+        }
+
+        .card-detail.warning {
+            color: #F59E0B;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1B2A4A;
+            margin-bottom: 16px;
+            margin-top: 24px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+            border: 1px solid #F0F1F3;
+            margin-bottom: 24px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            color: #6B7280;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: #E53935;
+            color: white;
+            border-color: #E53935;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        th {
+            background-color: #F9FAFB;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #6B7280;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #F0F1F3;
+        }
+
+        tr:hover {
+            background-color: #F9FAFB;
+        }
+
+        .rating-badge {
+            background-color: #FEF3C7;
+            color: #92400E;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .rating-badge.high {
+            background-color: #D1FAE5;
+            color: #065F46;
+        }
+
+        .rating-badge.medium {
+            background-color: #FED7AA;
+            color: #92400E;
+        }
+
+        .rating-badge.low {
+            background-color: #FEDEE4;
+            color: #881533;
+        }
+
+        .platform-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #F0F1F3;
+            margin-bottom: 12px;
+        }
+
+        .platform-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .platform-name {
+            font-weight: 600;
+            color: #1B2A4A;
+            font-size: 14px;
+        }
+
+        .platform-rating {
+            font-weight: 700;
+            color: #E53935;
+            font-size: 16px;
+        }
+
+        .platform-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .stat-item {
+            font-size: 12px;
+        }
+
+        .stat-label {
+            color: #6B7280;
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            color: #1B2A4A;
+            font-weight: 600;
+        }
+
+        .sentiment-bar {
+            height: 6px;
+            background-color: #E5E7EB;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .sentiment-fill {
+            height: 100%;
+            background-color: #10B981;
+            border-radius: 3px;
+        }
+
+        .sentiment-fill.medium {
+            background-color: #F59E0B;
+        }
+
+        .sentiment-fill.low {
+            background-color: #EF4444;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #E5E7EB;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calendar-day-header {
+            font-size: 11px;
+            font-weight: 600;
+            color: #6B7280;
+        }
+
+        .calendar-item {
+            font-size: 10px;
+            padding: 2px 4px;
+            border-radius: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .calendar-item.idea {
+            background-color: #E0E7FF;
+            color: #4338CA;
+        }
+
+        .calendar-item.borrador {
+            background-color: #FEF3C7;
+            color: #92400E;
+        }
+
+        .calendar-item.aprobado {
+            background-color: #DBEAFE;
+            color: #0C4A6E;
+        }
+
+        .calendar-item.programado {
+            background-color: #FCE7F3;
+            color: #831843;
+        }
+
+        .calendar-item.publicado {
+            background-color: #D1FAE5;
+            color: #065F46;
+        }
+
+        .hashtag-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .hashtag {
+            background: linear-gradient(135deg, #E53935 0%, #D32F2F 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .hashtag:hover {
+            transform: translateY(-2px);
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 16px 0;
+        }
+
+        .template-card {
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #E5E7EB;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .template-card:hover {
+            border-color: #E53935;
+            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.15);
+        }
+
+        .template-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .template-name {
+            font-weight: 600;
+            color: #1B2A4A;
+            font-size: 13px;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .media-item {
+            aspect-ratio: 1;
+            background: #E5E7EB;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .media-item:hover {
+            transform: scale(1.05);
+        }
+
+        .media-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .media-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .media-item:hover .media-overlay {
+            opacity: 1;
+        }
+
+        .selector-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 12px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .selector-input:focus {
+            outline: none;
+            border-color: #E53935;
+            box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1);
+        }
+
+        .upload-area {
+            border: 2px dashed #E5E7EB;
+            border-radius: 8px;
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: #F9FAFB;
+        }
+
+        .upload-area:hover {
+            border-color: #E53935;
+            background: #FEF2F2;
+        }
+
+        .upload-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .upload-text {
+            font-size: 13px;
+            color: #6B7280;
+        }
+
+        .competitor-post {
+            background: white;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #F0F1F3;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 12px;
+        }
+
+        .competitor-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #E53935 0%, #D32F2F 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .competitor-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .competitor-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: #1B2A4A;
+        }
+
+        .competitor-text {
+            font-size: 12px;
+            color: #6B7280;
+            margin: 4px 0;
+        }
+
+        .competitor-engagement {
+            display: flex;
+            gap: 12px;
+            font-size: 11px;
+            color: #9CA3AF;
+        }
+
+        .footer {
+            background: white;
+            padding: 24px;
+            text-align: center;
+            color: #9CA3AF;
+            font-size: 12px;
+            border-top: 1px solid #E5E7EB;
+            margin-top: 48px;
+        }
+
+        .ecommerce-channels {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .channel-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #F0F1F3;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .channel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .channel-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1B2A4A;
+        }
+
+        .channel-icon {
+            font-size: 24px;
+        }
+
+        .rating-large {
+            font-size: 24px;
+            font-weight: 700;
+            color: #E53935;
+        }
+
+        .reviews-count {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .channel-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F0F1F3;
+            font-size: 13px;
+        }
+
+        .channel-stat:last-child {
+            border-bottom: none;
+        }
+
+        .channel-stat-label {
+            color: #6B7280;
+        }
+
+        .channel-stat-value {
+            font-weight: 600;
+            color: #1B2A4A;
+        }
+
+        .trend-card {
+            background: linear-gradient(135deg, #FEF2F2 0%, #FFF5F5 100%);
+            border-left: 4px solid #E53935;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .trend-title {
+            font-weight: 600;
+            color: #1B2A4A;
+            margin-bottom: 8px;
+        }
+
+        .trend-stat {
+            display: flex;
+            gap: 16px;
+        }
+
+        .trend-item {
+            flex: 1;
+        }
+
+        .trend-label {
+            font-size: 11px;
+            color: #6B7280;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .trend-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #E53935;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 12px 16px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+            .header-left {
+                gap: 12px;
+            }
+
+            .logo {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+
+            .header-right {
+                align-self: flex-end;
+            }
+
+            .container {
+                padding: 16px;
+            }
+
+            .grid,
+            .grid-2,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .tab {
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+
+            .card-value {
+                font-size: 20px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+
+            .table-container {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 4px;
+            }
+
+            .calendar-day {
+                padding: 4px;
+            }
+
+            .calendar-day-header {
+                font-size: 9px;
+            }
+
+            .calendar-item {
+                font-size: 8px;
+            }
+
+            .template-grid {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            }
+
+            .media-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+
+            .ecommerce-channels {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } = window.recharts;
+
+        // Sample data
+        const initialData = {
+            brand: "Pomona",
+            handle: "@pomonaproducts",
+            website: "pomonaorganic.com",
+            followers: 4850,
+            engagementRate: 5.2,
+            monthlyReach: 28400,
+            lastUpdated: "2026-03-30T16:00:00Z"
+        };
+
+        // Content data
+        const contentData = [
+            { id: 1, type: 'Reel', title: 'Morning Juice Routine', likes: 1248, comments: 156, shares: 89, saves: 342, date: '2026-03-28', engagement: 8.2 },
+            { id: 2, type: 'Carousel', title: 'Top 5 Superfoods', likes: 856, comments: 92, shares: 45, saves: 201, date: '2026-03-27', engagement: 6.1 },
+            { id: 3, type: 'Feed', title: 'New Product Launch', likes: 623, comments: 78, shares: 34, saves: 156, date: '2026-03-26', engagement: 4.8 },
+            { id: 4, type: 'Stories', title: 'Behind the Scenes', likes: 1456, comments: 203, shares: 112, saves: 468, date: '2026-03-25', engagement: 9.1 },
+            { id: 5, type: 'Reel', title: 'Detox Challenge', likes: 2145, comments: 287, shares: 178, saves: 612, date: '2026-03-24', engagement: 11.3 },
+            { id: 6, type: 'Feed', title: 'Customer Testimonial', likes: 734, comments: 95, shares: 52, saves: 189, date: '2026-03-23', engagement: 5.4 },
+        ];
+
+        // Calendar data
+        const calendarData = [
+            { day: 1, items: [{ title: 'Post 1', status: 'publicado' }] },
+            { day: 2, items: [] },
+            { day: 3, items: [{ title: 'Post 2', status: 'publicado' }] },
+            { day: 4, items: [{ title: 'Post 3', status: 'programado' }] },
+            { day: 5, items: [] },
+            { day: 6, items: [{ title: 'Post 4', status: 'aprobado' }] },
+            { day: 7, items: [] },
+            { day: 8, items: [{ title: 'Post 5', status: 'borrador' }] },
+            { day: 9, items: [] },
+            { day: 10, items: [{ title: 'Post 6', status: 'publicado' }] },
+            { day: 11, items: [] },
+            { day: 12, items: [{ title: 'Post 7', status: 'idea' }] },
+            { day: 13, items: [] },
+            { day: 14, items: [] },
+            { day: 15, items: [{ title: 'Post 8', status: 'programado' }] },
+            { day: 16, items: [] },
+            { day: 17, items: [{ title: 'Post 9', status: 'publicado' }] },
+            { day: 18, items: [] },
+            { day: 19, items: [{ title: 'Post 10', status: 'aprobado' }] },
+            { day: 20, items: [] },
+            { day: 21, items: [{ title: 'Post 11', status: 'borrador' }] },
+            { day: 22, items: [] },
+            { day: 23, items: [] },
+            { day: 24, items: [{ title: 'Post 12', status: 'publicado' }] },
+            { day: 25, items: [{ title: 'Post 13', status: 'programado' }] },
+            { day: 26, items: [] },
+            { day: 27, items: [{ title: 'Post 14', status: 'idea' }] },
+            { day: 28, items: [] },
+            { day: 29, items: [{ title: 'Post 15', status: 'publicado' }] },
+            { day: 30, items: [{ title: 'Post 16', status: 'aprobado' }] },
+            { day: 31, items: [] },
+        ];
+
+        // Follower growth data
+        const followerData = [
+            { month: 'Oct', followers: 3200 },
+            { month: 'Nov', followers: 3650 },
+            { month: 'Dec', followers: 4100 },
+            { month: 'Jan', followers: 4350 },
+            { month: 'Feb', followers: 4620 },
+            { month: 'Mar', followers: 4850 },
+        ];
+
+        // Engagement by day
+        const engagementByDay = [
+            { day: 'Lun', engagement: 4.2 },
+            { day: 'Mar', engagement: 5.8 },
+            { day: 'MiÃ©', engagement: 4.9 },
+            { day: 'Jue', engagement: 6.3 },
+            { day: 'Vie', engagement: 7.1 },
+            { day: 'Sab', engagement: 8.4 },
+            { day: 'Dom', engagement: 3.2 },
+        ];
+
+        // Reach and impressions
+        const reachData = [
+            { week: 'Sem 1', reach: 6200, impressions: 18500 },
+            { week: 'Sem 2', reach: 7100, impressions: 21200 },
+            { week: 'Sem 3', reach: 8300, impressions: 24800 },
+            { week: 'Sem 4', reach: 6800, impressions: 20100 },
+        ];
+
+        // Content pillars
+        const pillarsData = [
+            { name: 'Wellness', value: 30, fill: '#E53935' },
+            { name: 'Recetas', value: 25, fill: '#FF7043' },
+            { name: 'Producto', value: 20, fill: '#FF9800' },
+            { name: 'EducaciÃ³n', value: 15, fill: '#FFC107' },
+            { name: 'Comunidad', value: 10, fill: '#FF5722' },
+        ];
+
+        // Ratings trend
+        const ratingsTrendData = [
+            { date: 'Mar 1', rating: 4.4 },
+            { date: 'Mar 7', rating: 4.5 },
+            { date: 'Mar 14', rating: 4.55 },
+            { date: 'Mar 21', rating: 4.58 },
+            { date: 'Mar 28', rating: 4.6 },
+        ];
+
+        // Sentiment data
+        const sentimentData = [
+            { category: 'Sabor', sentiment: 92 },
+            { category: 'Calidad', sentiment: 88 },
+            { category: 'Empaque', sentiment: 75 },
+            { category: 'Precio', sentiment: 58 },
+            { category: 'EnvÃ­o', sentiment: 82 },
+        ];
+
+        // Keywords
+        const keywordsData = [
+            { keyword: 'Delicioso', count: 145 },
+            { keyword: 'OrgÃ¡nico', count: 128 },
+            { keyword: 'Recomendado', count: 112 },
+            { keyword: 'Saludable', count: 98 },
+            { keyword: 'Fresco', count: 87 },
+            { keyword: 'EnergÃ­a', count: 76 },
+        ];
+
+        // Competitor activity
+        const competitorActivityData = [
+            { competitor: 'Health Co', posts: 8, engagement: 6.2 },
+            { competitor: 'Pure Juice', posts: 12, engagement: 7.8 },
+            { competitor: 'Wellness Co', posts: 6, engagement: 5.1 },
+            { competitor: 'Natural Life', posts: 10, engagement: 6.9 },
+        ];
+
+        // Competitor posts
+        const competitorPosts = [
+            { brand: 'Health Co', content: 'New superfood blend just dropped! ð¿', engagement: 324 },
+            { brand: 'Pure Juice', content: 'Summer cleanse challenge starting now!', engagement: 456 },
+            { brand: 'Wellness Co', content: 'Top 10 health benefits of turmeric', engagement: 189 },
+            { brand: 'Natural Life', content: 'Customer success story in our latest reel', engagement: 312 },
+        ];
+
+        const COLORS = ['#E53935', '#FF7043', '#FF9800', '#FFC107', '#FF5722'];
+
+        function PomatonaApp() {
+            const [activeTab, setActiveTab] = useState('overview');
+            const [contentFilter, setContentFilter] = useState('Todos');
+            const [mediaFilter, setMediaFilter] = useState('Todos');
+
+            const filteredContent = contentFilter === 'Todos'
+                ? contentData
+                : contentData.filter(item => item.type === contentFilter);
+
+            const tabs = [
+                { id: 'overview', label: 'Overview' },
+                { id: 'reputacion', label: 'ReputaciÃ³n' },
+                { id: 'contenido', label: 'Contenido' },
+                { id: 'calendario', label: 'Calendario' },
+                { id: 'inteligencia', label: 'Inteligencia' },
+                { id: 'crear', label: 'Crear Post' },
+                { id: 'media', label: 'Media Library' },
+                { id: 'ecommerce', label: 'E-commerce' },
+            ];
+
+            return (
+                <>
+                    <header className="header">
+                        <div className="header-left">
+                            <div className="logo">POMONA</div>
+                            <div className="header-info">
+                                <div className="header-title">Brand Management Suite</div>
+                                <div className="header-subtitle">@pomonaproducts â¢ 4.9K followers â¢ E-commerce</div>
+                            </div>
+                        </div>
+                        <div className="header-right">
+                            <div className="badge">
+                                <div className="badge-dot"></div>
+                                APIs Connected
+                            </div>
+                            <div className="settings-icon">âï¸</div>
+                        </div>
+                    </header>
+
+                    <div className="container">
+                        <div className="tabs">
+                            {tabs.map(tab => (
+                                <button
+                                    key={tab.id}
+                                    className={`tab ${activeTab === tab.id ? 'active' : ''}`}
+                                    onClick={() => setActiveTab(tab.id)}
+                                >
+                                    {tab.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="content">
+                            {/* Overview Tab */}
+                            {activeTab === 'overview' && (
+                                <>
+                                    <div className="grid grid-4">
+                                        <div className="card">
+                                            <div className="card-title">Seguidores</div>
+                                            <div className="card-value">4,850</div>
+                                            <div className="card-detail positive">+8.2% este mes</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Engagement Rate</div>
+                                            <div className="card-value">5.2%</div>
+                                            <div className="card-detail positive">+0.4% vs mes anterior</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Alcance Mensual</div>
+                                            <div className="card-value">28.4K</div>
+                                            <div className="card-detail positive">+12.3% crecimiento</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Best Performer</div>
+                                            <div className="card-value">6.8K</div>
+                                            <div className="card-detail">Reel - Detox Challenge</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="section-title">Crecimiento de Seguidores</div>
+                                    <div className="chart-container">
+                                        <ResponsiveContainer width="100%" height={300}>
+                                            <LineChart data={followerData}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                                                <XAxis dataKey="month" />
+                                                <YAxis />
+                                                <Tooltip
+                                                    contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
+                                                />
+                                                <Line
+                                                    type="monotone"
+                                                    dataKey="followers"
+                                                    stroke="#E53935"
+                                                    strokeWidth={3}
+                                                    dot={{ fill: '#E53935', r: 6 }}
+                                                />
+                                            </LineChart>
+                                        </ResponsiveContainer>
+                                    </div>
+
+                                    <div className="section-title">Engagement por DÃ­a</div>
+                                    <div className="chart-container">
+                                        <ResponsiveContainer width="100%" height={300}>
+                                            <BarChart data={engagementByDay}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                                                <XAxis dataKey="day" />
+                                                <YAxis />
+                                                <Tooltip
+                                                    contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
+                                                />
+                                                <Bar dataKey="engagement" fill="#E53935" radius={[8, 8, 0, 0]} />
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </div>
+
+                                    <div className="grid grid-2">
+                                        <div className="chart-container">
+                                            <h3 className="section-title" style={{ marginTop: 0 }}>Alcance e Impresiones</h3>
+                                            <ResponsiveContainer width="100%" height={300}>
+                                                <BarChart data={reachData}>
+                                                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                                                    <XAxis dataKey="week" />
+                                                    <YAxis />
+                                                    <Tooltip
+                                                        contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
+                                                    />
+                                                    <Legend />
+                                                    <Bar dataKey="reach" fill="#E53935" radius={[8, 8, 0, 0]} />
+                                                    <Bar dataKey="impressions" fill="#FF9800" radius={[8, 8, 0, 0]} />
+                                                </BarChart>
+                                            </ResponsiveContainer>
+                                        </div>
+
+                                        <div className="chart-container">
+                                            <h3 className="section-title" style={{ marginTop: 0 }}>Pilares de Contenido</h3>
+                                            <ResponsiveContainer width="100%" height={300}>
+                                                <PieChart>
+                                                    <Pie
+                                                        data={pillarsData}
+                                                        cx="50%"
+                                                        cy="50%"
+                                                        labelLine={false}
+                                                        label={({ name, value }) => `${name}: ${value}%`}
+                                                        outerRadius={80}
+                                                        fill="#8884d8"
+                                                        dataKey="value"
+                                                    >
+                                                        {pillarsData.map((entry, index) => (
+                                                            <Cell key={`cell-${index}`} fill={entry.fill} />
+                                                        ))}
+                                                    </Pie>
+                                                    <Tooltip />
+                                                </PieChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+
+                            {/* ReputaciÃ³n Tab */}
+                            {activeTab === 'reputacion' && (
+                                <>
+                                    <div className="grid grid-4">
+                                        <div className="card">
+                                            <div className="card-title">Rating Promedio</div>
+                                            <div className="card-value">4.6</div>
+                                            <div className="card-detail">De 5.0 estrellas</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Total Reviews</div>
+                                            <div className="card-value">1,247</div>
+                                            <div className="card-detail positive">+234 este mes</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Response Rate</div>
+                                            <div className="card-value">78%</div>
+                                            <div className="card-detail">Tiempo promedio: 24h</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Sin Responder</div>
+                                            <div className="card-value">5</div>
+                                            <div className="card-detail warning">Requiere atenciÃ³n</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="section-title">Plataformas</div>
+                                    <div>
+                                        <div className="platform-card">
+                                            <div className="platform-header">
+                                                <div className="platform-name">ð Amazon</div>
+                                                <div className="platform-rating">4.5/5.0</div>
+                                            </div>
+                                            <div className="platform-stats">
+                                                <div className="stat-item">
+                                                    <div className="stat-label">Reviews</div>
+                                                    <div className="stat-value">892</div>
+                                                </div>
+                                                <div className="stat-item">
+                                                    <div className="stat-label">Sentimiento</div>
+                                                    <div className="stat-value">Positivo</div>
+                                                </div>
+                                            </div>
+                                            <div className="sentiment-bar">
+                                                <div className="sentiment-fill" style={{ width: '89%' }}></div>
+                                            </div>
+                                        </div>
+
+                                        <div className="platform-card">
+                                            <div className="platform-header">
+                                                <div className="platform-name">ð Website</div>
+                                                <div className="platform-rating">4.7/5.0</div>
+                                            </div>
+                                            <div className="platform-stats">
+                                                <div className="stat-item">
+                                                    <div className="stat-label">Reviews</div>
+                                                    <div className="stat-value">198</div>
+                                                </div>
+                                                <div className="stat-item">
+                                                    <div className="stat-label">Sentimiento</div>
+                                                    <div className="stat-value">Muy Positivo</div>
+                                                </div>
+                                            </div>
+                                            <div className="sentiment-bar">
+                                                <div className="sentiment-fill" style={{ width: '94%' }}></div>
+                                            </div>
+                                        </div>
+
+                                        <div className="platform-card">
+                                            <div className="platform-header">
+                                                <div className="platform-name">â­ Trustpilot</div>
+                                                <div className="platform-rating">4.4/5.0</div>
+                                            </div>
+                                            <div className="platform-stats">
+                                                <div className="stat-item">
+                                                    <div className="stat-label">Reviews</div>
+                                                    <div className="stat-value">112</div>
+                                                </div>
+                                                <div className="stat-item">
+                                                    <div className="stat-label">Sentimiento</div>
+                                                    <div className="stat-value">Positivo</div>
+                                                </div>
+                                            </div>
+                                            <div className="sentiment-bar">
+                                                <div className="sentiment-fill" style={{ width: '88%' }}></div>
+                                            </div>
+                                        </div>
+
+                                        <div className="platform-card">
+                                            <div className="platform-header">
+                                                <div className="platform-name">ð iHerb</div>
+                                                <div className="platform-rating">4.6/5.0</div>
+                                            </div>
+                                            <div className="platform-stats">
+                                                <div className="stat-item">
+                                                    <div className="stat-label">Reviews</div>
+                                                    <div className="stat-value">45</div>
+                                                </div>
+                                                <div className="stat-item">
+                                                    <div className="stat-label">Sentimiento</div>
+                                                    <div className="stat-value">Positivo</div>
+                                                </div>
+                                            </div>
+                                            <div className="sentiment-bar">
+                                                <div className="sentiment-fill" style={{ width: '92%' }}></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="section-title">Tendencia de Ratings</div>
+                                    <div className="chart-container">
+                                        <ResponsiveContainer width="100%" height={300}>
+                                            <LineChart data={ratingsTrendData}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                                                <XAxis dataKey="date" />
+                                                <YAxis domain={[4.0, 5.0]} />
+                                                <Tooltip
+                                                    contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
+                                                />
+                                                <Line
+                                                    type="monotone"
+                                                    dataKey="rating"
+                                                    stroke="#E53935"
+                                                    strokeWidth={3}
+                                                    dot={{ fill: '#E53935', r: 6 }}
+                                                />
+                                            </LineChart>
+                                        </ResponsiveContainer>
+                                    </div>
+
+                                    <div className="section-title">Sentimiento por CategorÃ­a</div>
+                                    <div className="chart-container">
+                                        <ResponsiveContainer width="100%" height={300}>
+                                            <BarChart data={sentimentData}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                                                <XAxis dataKey="category" />
+                                                <YAxis />
+                                                <Tooltip
+                                                    contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
+                                                />
+                                                <Bar dataKey="sentiment" fill="#10B981" radius={[8, 8, 0, 0]} />
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </div>
+
+                                    <div className="section-title">Palabras Clave Principales</div>
+                                    <div className="grid grid-4">
+                                        {keywordsData.map((item, idx) => (
+                                            <div className="card" key={idx}>
+                                                <div className="card-title">{item.keyword}</div>
+                                                <div className="card-value">{item.count}</div>
+                                                <div className="card-detail">Menciones</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Contenido Tab */}
+                            {activeTab === 'contenido' && (
+                                <>
+                                    <div className="section-title">Posts Recientes</div>
+                                    <div className="filters">
+                                        {['Todos', 'Reels', 'Carousel', 'Feed', 'Stories'].map(filter => (
+                                            <button
+                                                key={filter}
+                                                className={`filter-btn ${contentFilter === filter ? 'active' : ''}`}
+                                                onClick={() => setContentFilter(filter)}
+                                            >
+                                                {filter}
+                                            </button>
+                                        ))}
+                                    </div>
+
+                                    <div className="chart-container">
+                                        <div className="table-container">
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Tipo</th>
+                                                        <th>TÃ­tulo</th>
+                                                        <th>Likes</th>
+                                                        <th>Comentarios</th>
+                                                        <th>Shares</th>
+                                                        <th>Saves</th>
+                                                        <th>Engagement</th>
+                                                        <th>Fecha</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {filteredContent.map(item => (
+                                                        <tr key={item.id}>
+                                                            <td><span className="rating-badge">{item.type}</span></td>
+                                                            <td>{item.title}</td>
+                                                            <td>{item.likes.toLocaleString()}</td>
+                                                            <td>{item.comments}</td>
+                                                            <td>{item.shares}</td>
+                                                            <td>{item.saves}</td>
+                                                            <td><span className="rating-badge high">{item.engagement}%</span></td>
+                                                            <td>{item.date}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div className="section-title">Top Posts</div>
+                                    <div className="grid grid-2">
+                                        <div className="card">
+                                            <div style={{ background: 'linear-gradient(135deg, #E53935 0%, #FF7043 100%)', height: '150px', borderRadius: '6px', marginBottom: '12px' }}></div>
+                                            <div className="card-title">Detox Challenge</div>
+                                            <div className="card-value">11.3%</div>
+                                            <div className="card-detail">2.1K likes â¢ 287 comentarios</div>
+                                        </div>
+                                        <div className="card">
+                                            <div style={{ background: 'linear-gradient(135deg, #FF9800 0%, #FFC107 100%)', height: '150px', borderRadius: '6px', marginBottom: '12px' }}></div>
+                                            <div className="card-title">Behind the Scenes</div>
+                                            <div className="card-value">9.1%</div>
+                                            <div className="card-detail">1.5K likes â¢ 203 comentarios</div>
+                                        </div>
+                                    </div>
+
+                                    <div className="section-title">Posts de Competencia</div>
+                                    <div className="grid grid-2">
+                                        {competitorPosts.map((post, idx) => (
+                                            <div className="competitor-post" key={idx}>
+                                                <div className="competitor-avatar">{post.brand.charAt(0)}</div>
+                                                <div className="competitor-content">
+                                                    <div className="competitor-name">{post.brand}</div>
+                                                    <div className="competitor-text">{post.content}</div>
+                                                    <div className="competitor-engagement">
+                                                        <span>â¤ï¸ {post.engagement}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Calendario Tab */}
+                            {activeTab === 'calendario' && (
+                                <>
+                                    <div className="section-title">Calendario de Contenido - Marzo 2026</div>
+                                    <div className="calendar-grid">
+                                        {calendarData.map((day) => (
+                                            <div key={day.day} className="calendar-day">
+                                                <div className="calendar-day-header">{day.day}</div>
+                                                <div>
+                                                    {day.items.map((item, idx) => (
+                                                        <div key={idx} className={`calendar-item ${item.status}`}>
+                                                            {item.title}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="section-title">Pipeline de Contenido</div>
+                                    <div className="grid grid-4">
+                                        <div className="card">
+                                            <div className="card-title">Ideas</div>
+                                            <div className="card-value">8</div>
+                                            <div className="card-detail">En conceptualizaciÃ³n</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Borrador</div>
+                                            <div className="card-value">5</div>
+                                            <div className="card-detail">Esperando revisiÃ³n</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Aprobado</div>
+                                            <div className="card-value">12</div>
+                                            <div className="card-detail">Listos para publicar</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Programado</div>
+                                            <div className="card-value">15</div>
+                                            <div className="card-detail">En cola de publicaciÃ³n</div>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Inteligencia Tab */}
+                            {activeTab === 'inteligencia' && (
+                                <>
+                                    <div className="section-title">Tendencias del Mercado</div>
+                                    <div className="trend-card">
+                                        <div className="trend-title">ð Tendencia: Smoothies y Juices</div>
+                                        <div className="trend-stat">
+                                            <div className="trend-item">
+                                                <div className="trend-label">Crecimiento</div>
+                                                <div className="trend-value">+23%</div>
+                                            </div>
+                                            <div className="trend-item">
+                                                <div className="trend-label">BÃºsquedas</div>
+                                                <div className="trend-value">145K</div>
+                                            </div>
+                                            <div className="trend-item">
+                                                <div className="trend-label">Posts</div>
+                                                <div className="trend-value">8.2K</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="trend-card">
+                                        <div className="trend-title">ð± Tendencia: Vida Saludable Sostenible</div>
+                                        <div className="trend-stat">
+                                            <div className="trend-item">
+                                                <div className="trend-label">Crecimiento</div>
+                                                <div className="trend-value">+34%</div>
+                                            </div>
+                                            <div className="trend-item">
+                                                <div className="trend-label">BÃºsquedas</div>
+                                                <div className="trend-value">267K</div>
+                                            </div>
+                                            <div className="trend-item">
+                                                <div className="trend-label">Posts</div>
+                                                <div className="trend-value">12.1K</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="section-title">Hashtags Trending</div>
+                                    <div className="hashtag-cloud">
+                                        {['#OrganicLiving', '#JuiceCleanse', '#HealthyLifestyle', '#WellnessJourney', '#PlantBased', '#CleanEating', '#SuperfoodSmoothie', '#NaturalHealth'].map(tag => (
+                                            <div key={tag} className="hashtag">{tag}</div>
+                                        ))}
+                                    </div>
+
+                                    <div className="section-title">Actividad de Competencia</div>
+                                    <div className="chart-container">
+                                        <ResponsiveContainer width="100%" height={300}>
+                                            <BarChart data={competitorActivityData}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                                                <XAxis dataKey="competitor" />
+                                                <YAxis yAxisId="left" />
+                                                <YAxis yAxisId="right" orientation="right" />
+                                                <Tooltip
+                                                    contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
+                                                />
+                                                <Legend />
+                                                <Bar yAxisId="left" dataKey="posts" fill="#E53935" radius={[8, 8, 0, 0]} />
+                                                <Bar yAxisId="right" dataKey="engagement" fill="#FF9800" radius={[8, 8, 0, 0]} />
+                                            </BarChart>
+                                        </ResponsiveContainer>
+                                    </div>
+
+                                    <div className="section-title">Feed de Competencia</div>
+                                    {competitorPosts.map((post, idx) => (
+                                        <div className="competitor-post" key={idx}>
+                                            <div className="competitor-avatar">{post.brand.charAt(0)}</div>
+                                            <div className="competitor-content">
+                                                <div className="competitor-name">{post.brand}</div>
+                                                <div className="competitor-text">{post.content}</div>
+                                                <div className="competitor-engagement">
+                                                    <span>â¤ï¸ {post.engagement}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </>
+                            )}
+
+                            {/* Crear Post Tab */}
+                            {activeTab === 'crear' && (
+                                <>
+                                    <div className="section-title">Templates RÃ¡pidos</div>
+                                    <div className="template-grid">
+                                        {[
+                                            { name: 'Morning Juice Ritual', icon: 'ð' },
+                                            { name: 'Cleanse Challenge', icon: 'ð¿' },
+                                            { name: 'Product Spotlight', icon: 'â¨' },
+                                            { name: 'Health Tip', icon: 'ð¡' },
+                                            { name: 'Customer Story', icon: 'ð¥' },
+                                            { name: 'Seasonal Recipe', icon: 'ð' },
+                                        ].map((template, idx) => (
+                                            <div key={idx} className="template-card">
+                                                <div className="template-icon">{template.icon}</div>
+                                                <div className="template-name">{template.name}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="section-title">Crear Contenido</div>
+                                    <div className="chart-container">
+                                        <label style={{ display: 'block', marginBottom: '12px' }}>
+                                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1B2A4A' }}>Tipo de Post</span>
+                                            <select className="selector-input">
+                                                <option>Selecciona un tipo de post</option>
+                                                <option>Reel</option>
+                                                <option>Carousel</option>
+                                                <option>Feed Post</option>
+                                                <option>Story</option>
+                                            </select>
+                                        </label>
+
+                                        <label style={{ display: 'block', marginBottom: '12px' }}>
+                                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1B2A4A' }}>Pilar de Contenido</span>
+                                            <select className="selector-input">
+                                                <option>Selecciona un pilar</option>
+                                                <option>Wellness</option>
+                                                <option>Recetas</option>
+                                                <option>Producto</option>
+                                                <option>EducaciÃ³n</option>
+                                                <option>Comunidad</option>
+                                            </select>
+                                        </label>
+
+                                        <label style={{ display: 'block', marginBottom: '16px' }}>
+                                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1B2A4A', display: 'block', marginBottom: '8px' }}>DescripciÃ³n</span>
+                                            <textarea
+                                                className="selector-input"
+                                                style={{ minHeight: '100px', fontFamily: 'Inter, sans-serif' }}
+                                                placeholder="Describe tu idea de contenido..."
+                                            />
+                                        </label>
+
+                                        <div className="section-title" style={{ marginBottom: '16px' }}>Generador de ImÃ¡genes IA</div>
+                                        <div className="upload-area">
+                                            <div className="upload-icon">ð¨</div>
+                                            <div className="upload-text">Usa IA para generar imÃ¡genes con Freepik</div>
+                                            <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '8px' }}>Describe la imagen que deseas</div>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+
+                            {/* Media Library Tab */}
+                            {activeTab === 'media' && (
+                                <>
+                                    <div className="section-title">Media Library</div>
+                                    <div className="filters">
+                                        {['Todos', 'Productos', 'Recetas', 'Lifestyle', 'Ingredientes'].map(filter => (
+                                            <button
+                                                key={filter}
+                                                className={`filter-btn ${mediaFilter === filter ? 'active' : ''}`}
+                                                onClick={() => setMediaFilter(filter)}
+                                            >
+                                                {filter}
+                                            </button>
+                                        ))}
+                                    </div>
+
+                                    <div style={{ marginBottom: '24px', display: 'flex', gap: '12px' }}>
+                                        <button className="filter-btn" style={{ background: 'white', border: '1px solid #E5E7EB', cursor: 'pointer', flex: 1 }}>ð¤ Subir Contenido</button>
+                                        <button className="filter-btn" style={{ background: 'white', border: '1px solid #E5E7EB', cursor: 'pointer', flex: 1 }}>â¨ Generar con IA</button>
+                                    </div>
+
+                                    <div className="upload-area" style={{ marginBottom: '24px' }}>
+                                        <div className="upload-icon">ð¸</div>
+                                        <div className="upload-text">Arrastra imÃ¡genes aquÃ­ o haz clic para subir</div>
+                                        <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '8px' }}>Soporta JPG, PNG, GIF</div>
+                                    </div>
+
+                                    <div className="media-grid">
+                                        {[
+                                            { name: 'Pomona Detox', cat: 'Productos' },
+                                            { name: 'Juice Smoothie', cat: 'Recetas' },
+                                            { name: 'Morning Ritual', cat: 'Lifestyle' },
+                                            { name: 'Ingredient Mix', cat: 'Ingredientes' },
+                                            { name: 'Product Shot', cat: 'Productos' },
+                                            { name: 'Fresh Juice', cat: 'Recetas' },
+                                            { name: 'Wellness', cat: 'Lifestyle' },
+                                            { name: 'Organic Fruits', cat: 'Ingredientes' },
+                                        ].map((item, idx) => (
+                                            <div key={idx} className="media-item">
+                                                <div style={{ background: `linear-gradient(135deg, ${COLORS[idx % COLORS.length]} 0%, ${COLORS[(idx + 1) % COLORS.length]} 100%)`, width: '100%', height: '100%' }}></div>
+                                                <div className="media-overlay">
+                                                    <div style={{ textAlign: 'center' }}>
+                                                        <div style={{ fontSize: '24px', marginBottom: '8px' }}>ðï¸</div>
+                                                        <div style={{ fontSize: '12px', fontWeight: '600' }}>{item.name}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+
+                            {/* E-commerce Tab */}
+                            {activeTab === 'ecommerce' && (
+                                <>
+                                    <div className="section-title">Canales de Venta</div>
+                                    <div className="ecommerce-channels">
+                                        <div className="channel-card">
+                                            <div className="channel-header">
+                                                <div>
+                                                    <div className="channel-name">ð Amazon</div>
+                                                    <div className="reviews-count">892 reseÃ±as</div>
+                                                </div>
+                                                <div className="channel-icon">ð¦</div>
+                                            </div>
+                                            <div className="rating-large">4.5/5.0</div>
+                                            <div className="channel-stat">
+                                                <span className="channel-stat-label">Top Producto</span>
+                                                <span className="channel-stat-value">Pomona Detox</span>
+                                            </div>
+                                            <div className="channel-stat">
+                                                <span className="channel-stat-label">Ãrdenes/Mes</span>
+                                                <span className="channel-stat-value">~2.8K</span>
+                                            </div>
+                                            <div style={{ marginTop: '12px' }}>
+                                                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '8px' }}>Sentimiento</div>
+                                                <div className="sentiment-bar">
+                                                    <div className="sentiment-fill" style={{ width: '90%' }}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="channel-card">
+                                            <div className="channel-header">
+                                                <div>
+                                                    <div className="channel-name">ð Website Direct</div>
+                                                    <div className="reviews-count">198 reseÃ±as</div>
+                                                </div>
+                                                <div className="channel-icon">ð»</div>
+                                            </div>
+                                            <div className="rating-large">4.7/5.0</div>
+                                            <div className="channel-stat">
+                                                <span className="channel-stat-label">Top Producto</span>
+                                                <span className="channel-stat-value">Green Juice Pro</span>
+                                            </div>
+                                            <div className="channel-stat">
+                                                <span className="channel-stat-label">Ãrdenes/Mes</span>
+                                                <span className="channel-stat-value">~1.5K</span>
+                                            </div>
+                                            <div style={{ marginTop: '12px' }}>
+                                                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '8px' }}>Sentimiento</div>
+                                                <div className="sentiment-bar">
+                                                    <div className="sentiment-fill" style={{ width: '94%' }}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="channel-card">
+                                            <div className="channel-header">
+                                                <div>
+                                                    <div className="channel-name">ðï¸ Walmart</div>
+                                                    <div className="reviews-count">445 reseÃ±as</div>
+                                                </div>
+                                                <div className="channel-icon">ð¬</div>
+                                            </div>
+                                            <div className="rating-large">4.4/5.0</div>
+                                            <div className="channel-stat">
+                                                <span className="channel-stat-label">Top Producto</span>
+                                                <span className="channel-stat-value">Pomona Supplements</span>
+                                            </div>
+                                            <div className="channel-stat">
+                                                <span className="channel-stat-label">Ãrdenes/Mes</span>
+                                                <span className="channel-stat-value">~1.2K</span>
+                                            </div>
+                                            <div style={{ marginTop: '12px' }}>
+                                                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '8px' }}>Sentimiento</div>
+                                                <div className="sentiment-bar">
+                                                    <div className="sentiment-fill medium" style={{ width: '86%' }}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="channel-card">
+                                            <div className="channel-header">
+                                                <div>
+                                                    <div className="channel-name">ð¯ Target</div>
+                                                    <div className="reviews-count">267 reseÃ±as</div>
+                                                </div>
+                                                <div className="channel-icon">ðª</div>
+                                            </div>
+                                            <div className="rating-large">4.3/5.0</div>
+                                            <div className="channel-stat">
+                                                <span className="channel-stat-label">Top Producto</span>
+                                                <span className="channel-stat-value">Wellness Bundle</span>
+                                            </div>
+                                            <div className="channel-stat">
+                                                <span className="channel-stat-label">Ãrdenes/Mes</span>
+                                                <span className="channel-stat-value">~890</span>
+                                            </div>
+                                            <div style={{ marginTop: '12px' }}>
+                                                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '8px' }}>Sentimiento</div>
+                                                <div className="sentiment-bar">
+                                                    <div className="sentiment-fill" style={{ width: '84%' }}></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="section-title">Resumen de Ventas</div>
+                                    <div className="grid grid-4">
+                                        <div className="card">
+                                            <div className="card-title">Ingresos Totales</div>
+                                            <div className="card-value">$156K</div>
+                                            <div className="card-detail positive">+18% este mes</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Ãrdenes</div>
+                                            <div className="card-value">6.4K</div>
+                                            <div className="card-detail">Este mes</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">AOV</div>
+                                            <div className="card-value">$24.38</div>
+                                            <div className="card-detail">Valor promedio</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Tasa ConversiÃ³n</div>
+                                            <div className="card-value">3.2%</div>
+                                            <div className="card-detail positive">+0.5% vs anterior</div>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+
+                    <footer className="footer">
+                        Pomona Platform â¢ Brand Management Suite â¢ Built by Paradise.ia â¢ Mar 2026
+                    </footer>
+                </>
+            );
+        }
+
+        ReactDOM.createRoot(document.getElementById('root')).render(<PomatonaApp />);
+    </script>
+</body>
+</html>
