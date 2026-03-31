@@ -902,7 +902,7 @@
         const engagementByDay = [
             { day: 'Lun', engagement: 4.2 },
             { day: 'Mar', engagement: 5.8 },
-            { day: 'MiÃ©', engagement: 4.9 },
+            { day: 'Mié', engagement: 4.9 },
             { day: 'Jue', engagement: 6.3 },
             { day: 'Vie', engagement: 7.1 },
             { day: 'Sab', engagement: 8.4 },
@@ -922,7 +922,7 @@
             { name: 'Wellness', value: 30, fill: '#E53935' },
             { name: 'Recetas', value: 25, fill: '#FF7043' },
             { name: 'Producto', value: 20, fill: '#FF9800' },
-            { name: 'EducaciÃ³n', value: 15, fill: '#FFC107' },
+            { name: 'Educación', value: 15, fill: '#FFC107' },
             { name: 'Comunidad', value: 10, fill: '#FF5722' },
         ];
 
@@ -941,17 +941,17 @@
             { category: 'Calidad', sentiment: 88 },
             { category: 'Empaque', sentiment: 75 },
             { category: 'Precio', sentiment: 58 },
-            { category: 'EnvÃ­o', sentiment: 82 },
+            { category: 'Envío', sentiment: 82 },
         ];
 
         // Keywords
         const keywordsData = [
             { keyword: 'Delicioso', count: 145 },
-            { keyword: 'OrgÃ¡nico', count: 128 },
+            { keyword: 'Orgánico', count: 128 },
             { keyword: 'Recomendado', count: 112 },
             { keyword: 'Saludable', count: 98 },
             { keyword: 'Fresco', count: 87 },
-            { keyword: 'EnergÃ­a', count: 76 },
+            { keyword: 'Energía', count: 76 },
         ];
 
         // Competitor activity
@@ -983,7 +983,7 @@
 
             const tabs = [
                 { id: 'overview', label: 'Overview' },
-                { id: 'reputacion', label: 'ReputaciÃ³n' },
+                { id: 'reputacion', label: 'Reputación' },
                 { id: 'contenido', label: 'Contenido' },
                 { id: 'calendario', label: 'Calendario' },
                 { id: 'inteligencia', label: 'Inteligencia' },
@@ -999,7 +999,7 @@
                             <div className="logo">POMONA</div>
                             <div className="header-info">
                                 <div className="header-title">Brand Management Suite</div>
-                                <div className="header-subtitle">@pomonaproducts â¢ 4.9K followers â¢ E-commerce</div>
+                                <div className="header-subtitle">@pomonaproducts • 4.9K followers • E-commerce</div>
                             </div>
                         </div>
                         <div className="header-right">
@@ -1072,7 +1072,7 @@
                                         </ResponsiveContainer>
                                     </div>
 
-                                    <div className="section-title">Engagement por DÃ­a</div>
+                                    <div className="section-title">Engagement por Día</div>
                                     <div className="chart-container">
                                         <ResponsiveContainer width="100%" height={300}>
                                             <BarChart data={engagementByDay}>
@@ -1131,7 +1131,7 @@
                                 </>
                             )}
 
-                            {/* ReputaciÃ³n Tab */}
+                            {/* Reputación Tab */}
                             {activeTab === 'reputacion' && (
                                 <>
                                     <div className="grid grid-4">
@@ -1153,7 +1153,7 @@
                                         <div className="card">
                                             <div className="card-title">Sin Responder</div>
                                             <div className="card-value">5</div>
-                                            <div className="card-detail warning">Requiere atenciÃ³n</div>
+                                            <div className="card-detail warning">Requiere atención</div>
                                         </div>
                                     </div>
 
@@ -1261,7 +1261,7 @@
                                         </ResponsiveContainer>
                                     </div>
 
-                                    <div className="section-title">Sentimiento por CategorÃ­a</div>
+                                    <div className="section-title">Sentimiento por Categoría</div>
                                     <div className="chart-container">
                                         <ResponsiveContainer width="100%" height={300}>
                                             <BarChart data={sentimentData}>
@@ -1311,7 +1311,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Tipo</th>
-                                                        <th>TÃ­tulo</th>
+                                                        <th>Título</th>
                                                         <th>Likes</th>
                                                         <th>Comentarios</th>
                                                         <th>Shares</th>
@@ -1344,13 +1344,13 @@
                                             <div style={{ background: 'linear-gradient(135deg, #E53935 0%, #FF7043 100%)', height: '150px', borderRadius: '6px', marginBottom: '12px' }}></div>
                                             <div className="card-title">Detox Challenge</div>
                                             <div className="card-value">11.3%</div>
-                                            <div className="card-detail">2.1K likes â¢ 287 comentarios</div>
+                                            <div className="card-detail">2.1K likes • 287 comentarios</div>
                                         </div>
                                         <div className="card">
                                             <div style={{ background: 'linear-gradient(135deg, #FF9800 0%, #FFC107 100%)', height: '150px', borderRadius: '6px', marginBottom: '12px' }}></div>
                                             <div className="card-title">Behind the Scenes</div>
                                             <div className="card-value">9.1%</div>
-                                            <div className="card-detail">1.5K likes â¢ 203 comentarios</div>
+                                            <div className="card-detail">1.5K likes • 203 comentarios</div>
                                         </div>
                                     </div>
 
@@ -1396,12 +1396,12 @@
                                         <div className="card">
                                             <div className="card-title">Ideas</div>
                                             <div className="card-value">8</div>
-                                            <div className="card-detail">En conceptualizaciÃ³n</div>
+                                            <div className="card-detail">En conceptualización</div>
                                         </div>
                                         <div className="card">
                                             <div className="card-title">Borrador</div>
                                             <div className="card-value">5</div>
-                                            <div className="card-detail">Esperando revisiÃ³n</div>
+                                            <div className="card-detail">Esperando revisión</div>
                                         </div>
                                         <div className="card">
                                             <div className="card-title">Aprobado</div>
@@ -1411,7 +1411,7 @@
                                         <div className="card">
                                             <div className="card-title">Programado</div>
                                             <div className="card-value">15</div>
-                                            <div className="card-detail">En cola de publicaciÃ³n</div>
+                                            <div className="card-detail">En cola de publicación</div>
                                         </div>
                                     </div>
                                 </>
@@ -1429,7 +1429,7 @@
                                                 <div className="trend-value">+23%</div>
                                             </div>
                                             <div className="trend-item">
-                                                <div className="trend-label">BÃºsquedas</div>
+                                                <div className="trend-label">Búsquedas</div>
                                                 <div className="trend-value">145K</div>
                                             </div>
                                             <div className="trend-item">
@@ -1447,7 +1447,7 @@
                                                 <div className="trend-value">+34%</div>
                                             </div>
                                             <div className="trend-item">
-                                                <div className="trend-label">BÃºsquedas</div>
+                                                <div className="trend-label">Búsquedas</div>
                                                 <div className="trend-value">267K</div>
                                             </div>
                                             <div className="trend-item">
@@ -1501,7 +1501,7 @@
                             {/* Crear Post Tab */}
                             {activeTab === 'crear' && (
                                 <>
-                                    <div className="section-title">Templates RÃ¡pidos</div>
+                                    <div className="section-title">Templates Rápidos</div>
                                     <div className="template-grid">
                                         {[
                                             { name: 'Morning Juice Ritual', icon: 'ð' },
@@ -1538,13 +1538,13 @@
                                                 <option>Wellness</option>
                                                 <option>Recetas</option>
                                                 <option>Producto</option>
-                                                <option>EducaciÃ³n</option>
+                                                <option>Educación</option>
                                                 <option>Comunidad</option>
                                             </select>
                                         </label>
 
                                         <label style={{ display: 'block', marginBottom: '16px' }}>
-                                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1B2A4A', display: 'block', marginBottom: '8px' }}>DescripciÃ³n</span>
+                                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1B2A4A', display: 'block', marginBottom: '8px' }}>Descripción</span>
                                             <textarea
                                                 className="selector-input"
                                                 style={{ minHeight: '100px', fontFamily: 'Inter, sans-serif' }}
@@ -1552,10 +1552,10 @@
                                             />
                                         </label>
 
-                                        <div className="section-title" style={{ marginBottom: '16px' }}>Generador de ImÃ¡genes IA</div>
+                                        <div className="section-title" style={{ marginBottom: '16px' }}>Generador de Imágenes IA</div>
                                         <div className="upload-area">
                                             <div className="upload-icon">ð¨</div>
-                                            <div className="upload-text">Usa IA para generar imÃ¡genes con Freepik</div>
+                                            <div className="upload-text">Usa IA para generar imágenes con Freepik</div>
                                             <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '8px' }}>Describe la imagen que deseas</div>
                                         </div>
                                     </div>
@@ -1585,7 +1585,7 @@
 
                                     <div className="upload-area" style={{ marginBottom: '24px' }}>
                                         <div className="upload-icon">ð¸</div>
-                                        <div className="upload-text">Arrastra imÃ¡genes aquÃ­ o haz clic para subir</div>
+                                        <div className="upload-text">Arrastra imágenes aquí o haz clic para subir</div>
                                         <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '8px' }}>Soporta JPG, PNG, GIF</div>
                                     </div>
 
@@ -1623,7 +1623,7 @@
                                             <div className="channel-header">
                                                 <div>
                                                     <div className="channel-name">ð Amazon</div>
-                                                    <div className="reviews-count">892 reseÃ±as</div>
+                                                    <div className="reviews-count">892 reseñas</div>
                                                 </div>
                                                 <div className="channel-icon">ð¦</div>
                                             </div>
@@ -1633,7 +1633,7 @@
                                                 <span className="channel-stat-value">Pomona Detox</span>
                                             </div>
                                             <div className="channel-stat">
-                                                <span className="channel-stat-label">Ãrdenes/Mes</span>
+                                                <span className="channel-stat-label">Órdenes/Mes</span>
                                                 <span className="channel-stat-value">~2.8K</span>
                                             </div>
                                             <div style={{ marginTop: '12px' }}>
@@ -1648,7 +1648,7 @@
                                             <div className="channel-header">
                                                 <div>
                                                     <div className="channel-name">ð Website Direct</div>
-                                                    <div className="reviews-count">198 reseÃ±as</div>
+                                                    <div className="reviews-count">198 reseñas</div>
                                                 </div>
                                                 <div className="channel-icon">ð»</div>
                                             </div>
@@ -1658,7 +1658,7 @@
                                                 <span className="channel-stat-value">Green Juice Pro</span>
                                             </div>
                                             <div className="channel-stat">
-                                                <span className="channel-stat-label">Ãrdenes/Mes</span>
+                                                <span className="channel-stat-label">Órdenes/Mes</span>
                                                 <span className="channel-stat-value">~1.5K</span>
                                             </div>
                                             <div style={{ marginTop: '12px' }}>
@@ -1673,7 +1673,7 @@
                                             <div className="channel-header">
                                                 <div>
                                                     <div className="channel-name">ðï¸ Walmart</div>
-                                                    <div className="reviews-count">445 reseÃ±as</div>
+                                                    <div className="reviews-count">445 reseñas</div>
                                                 </div>
                                                 <div className="channel-icon">ð¬</div>
                                             </div>
@@ -1683,7 +1683,7 @@
                                                 <span className="channel-stat-value">Pomona Supplements</span>
                                             </div>
                                             <div className="channel-stat">
-                                                <span className="channel-stat-label">Ãrdenes/Mes</span>
+                                                <span className="channel-stat-label">Órdenes/Mes</span>
                                                 <span className="channel-stat-value">~1.2K</span>
                                             </div>
                                             <div style={{ marginTop: '12px' }}>
@@ -1698,7 +1698,7 @@
                                             <div className="channel-header">
                                                 <div>
                                                     <div className="channel-name">ð¯ Target</div>
-                                                    <div className="reviews-count">267 reseÃ±as</div>
+                                                    <div className="reviews-count">267 reseñas</div>
                                                 </div>
                                                 <div className="channel-icon">ðª</div>
                                             </div>
@@ -1708,7 +1708,7 @@
                                                 <span className="channel-stat-value">Wellness Bundle</span>
                                             </div>
                                             <div className="channel-stat">
-                                                <span className="channel-stat-label">Ãrdenes/Mes</span>
+                                                <span className="channel-stat-label">Órdenes/Mes</span>
                                                 <span className="channel-stat-value">~890</span>
                                             </div>
                                             <div style={{ marginTop: '12px' }}>
@@ -1728,7 +1728,7 @@
                                             <div className="card-detail positive">+18% este mes</div>
                                         </div>
                                         <div className="card">
-                                            <div className="card-title">Ãrdenes</div>
+                                            <div className="card-title">Órdenes</div>
                                             <div className="card-value">6.4K</div>
                                             <div className="card-detail">Este mes</div>
                                         </div>
@@ -1738,7 +1738,7 @@
                                             <div className="card-detail">Valor promedio</div>
                                         </div>
                                         <div className="card">
-                                            <div className="card-title">Tasa ConversiÃ³n</div>
+                                            <div className="card-title">Tasa Conversión</div>
                                             <div className="card-value">3.2%</div>
                                             <div className="card-detail positive">+0.5% vs anterior</div>
                                         </div>
@@ -1749,7 +1749,7 @@
                     </div>
 
                     <footer className="footer">
-                        Pomona Platform â¢ Brand Management Suite â¢ Built by Paradise.ia â¢ Mar 2026
+                        Pomona Platform • Brand Management Suite • Built by Paradise.ia • Mar 2026
                     </footer>
                 </>
             );
