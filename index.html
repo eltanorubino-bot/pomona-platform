@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomona - Brand Management Suite</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prop-types/15.8.1/prop-types.min.js"></script>
     <script src="https://unpkg.com/recharts@2.12.7/umd/Recharts.js"></script>
     <style>
         * {
@@ -70,6 +70,7 @@
             display: flex;
             align-items: center;
             gap: 16px;
+            position: relative;
         }
 
         .badge {
@@ -127,6 +128,9 @@
             transition: all 0.3s;
             border-bottom: 3px solid transparent;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .tab:hover {
@@ -166,6 +170,10 @@
 
         .grid-4 {
             grid-template-columns: repeat(4, 1fr);
+        }
+
+        .grid-5 {
+            grid-template-columns: repeat(5, 1fr);
         }
 
         .card {
@@ -208,6 +216,24 @@
 
         .card-detail.warning {
             color: #F59E0B;
+        }
+
+        .card-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .card-trend {
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .card-trend.positive {
+            color: #10B981;
         }
 
         .section-title {
@@ -278,101 +304,140 @@
         }
 
         tr:hover {
-            background-color: #F9FAFB;
+            background-color: #FAFAFA;
         }
 
-        .rating-badge {
-            background-color: #FEF3C7;
-            color: #92400E;
-            padding: 4px 8px;
+        .badge-small {
+            display: inline-block;
+            padding: 4px 10px;
             border-radius: 4px;
+            font-size: 11px;
             font-weight: 600;
-            font-size: 12px;
         }
 
-        .rating-badge.high {
-            background-color: #D1FAE5;
-            color: #065F46;
+        .badge-reel {
+            background-color: #FEE2E2;
+            color: #DC2626;
         }
 
-        .rating-badge.medium {
-            background-color: #FED7AA;
-            color: #92400E;
+        .badge-carousel {
+            background-color: #FEF3C7;
+            color: #D97706;
         }
 
-        .rating-badge.low {
-            background-color: #FEDEE4;
-            color: #881533;
+        .badge-feed {
+            background-color: #DBEAFE;
+            color: #2563EB;
+        }
+
+        .badge-story {
+            background-color: #E9D5FF;
+            color: #9333EA;
         }
 
         .platform-card {
             background: white;
             border-radius: 8px;
-            padding: 16px;
+            padding: 20px;
             border: 1px solid #F0F1F3;
-            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .platform-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .platform-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .platform-icon {
+            font-size: 32px;
             margin-bottom: 12px;
         }
 
         .platform-name {
+            font-size: 14px;
             font-weight: 600;
             color: #1B2A4A;
-            font-size: 14px;
-        }
-
-        .platform-rating {
-            font-weight: 700;
-            color: #E53935;
-            font-size: 16px;
-        }
-
-        .platform-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .stat-item {
-            font-size: 12px;
-        }
-
-        .stat-label {
-            color: #6B7280;
             margin-bottom: 4px;
         }
 
-        .stat-value {
+        .platform-stat {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .keyword-pill {
+            display: inline-block;
+            background-color: #F0F1F3;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .keyword-pill.positive {
+            background-color: #DBEAFE;
+            color: #0369A1;
+        }
+
+        .keyword-pill.negative {
+            background-color: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .review-feed {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            border-left: 4px solid #E53935;
+            margin-bottom: 12px;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 8px;
+        }
+
+        .review-name {
+            font-weight: 600;
             color: #1B2A4A;
+            font-size: 13px;
+        }
+
+        .review-date {
+            font-size: 11px;
+            color: #9CA3AF;
+        }
+
+        .review-stars {
+            color: #F59E0B;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .review-text {
+            font-size: 12px;
+            color: #6B7280;
+            margin-bottom: 12px;
+        }
+
+        .review-response-btn {
+            padding: 6px 12px;
+            background-color: #E53935;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
             font-weight: 600;
         }
 
-        .sentiment-bar {
-            height: 6px;
-            background-color: #E5E7EB;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 8px;
-        }
-
-        .sentiment-fill {
-            height: 100%;
-            background-color: #10B981;
-            border-radius: 3px;
-        }
-
-        .sentiment-fill.medium {
-            background-color: #F59E0B;
-        }
-
-        .sentiment-fill.low {
-            background-color: #EF4444;
+        .review-response-btn:hover {
+            background-color: #D32F2F;
         }
 
         .calendar-grid {
@@ -382,93 +447,293 @@
             margin-bottom: 24px;
         }
 
-        .calendar-day {
-            aspect-ratio: 1;
-            background: white;
-            border-radius: 8px;
-            border: 1px solid #E5E7EB;
-            padding: 8px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            position: relative;
-            overflow: hidden;
+        .calendar-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
-        .calendar-day-header {
-            font-size: 11px;
+        .calendar-day-name {
+            text-align: center;
             font-weight: 600;
+            color: #6B7280;
+            font-size: 12px;
+            padding: 8px;
+        }
+
+        .calendar-cell {
+            aspect-ratio: 1;
+            border-radius: 6px;
+            padding: 8px;
+            font-size: 11px;
+            border: 1px solid #E5E7EB;
+            cursor: pointer;
+            transition: all 0.3s;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .calendar-cell.empty {
+            background-color: #FAFAFA;
+            cursor: default;
+        }
+
+        .calendar-cell.idea {
+            background-color: #DBEAFE;
+            border-color: #93C5FD;
+        }
+
+        .calendar-cell.borrador {
+            background-color: #FEF3C7;
+            border-color: #FCD34D;
+        }
+
+        .calendar-cell.aprobado {
+            background-color: #DBEAFE;
+            border-color: #7DD3FC;
+        }
+
+        .calendar-cell.programado {
+            background-color: #ECCA5C;
+            border-color: #FCD34D;
+        }
+
+        .calendar-cell.publicado {
+            background-color: #DCFCE7;
+            border-color: #86EFAC;
+        }
+
+        .calendar-cell.selected {
+            border: 2px solid #E53935;
+        }
+
+        .calendar-number {
+            font-weight: 600;
+            color: #1B2A4A;
+        }
+
+        .calendar-label {
+            font-size: 9px;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .calendar-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-nav-btn {
+            padding: 8px 12px;
+            border: 1px solid #E5E7EB;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
             color: #6B7280;
         }
 
-        .calendar-item {
-            font-size: 10px;
-            padding: 2px 4px;
-            border-radius: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+        .calendar-nav-btn:hover {
+            background-color: #F9FAFB;
         }
 
-        .calendar-item.idea {
-            background-color: #E0E7FF;
-            color: #4338CA;
+        .calendar-nav-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1B2A4A;
         }
 
-        .calendar-item.borrador {
-            background-color: #FEF3C7;
-            color: #92400E;
-        }
-
-        .calendar-item.aprobado {
-            background-color: #DBEAFE;
-            color: #0C4A6E;
-        }
-
-        .calendar-item.programado {
-            background-color: #FCE7F3;
-            color: #831843;
-        }
-
-        .calendar-item.publicado {
-            background-color: #D1FAE5;
-            color: #065F46;
-        }
-
-        .hashtag-cloud {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin: 16px 0;
-        }
-
-        .hashtag {
-            background: linear-gradient(135deg, #E53935 0%, #D32F2F 100%);
+        .add-event-btn {
+            padding: 10px 16px;
+            background-color: #E53935;
             color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .pipeline-summary {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .pipeline-item {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #E5E7EB;
+            text-align: center;
+        }
+
+        .pipeline-label {
+            font-size: 11px;
+            color: #6B7280;
+            font-weight: 500;
+        }
+
+        .pipeline-count {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1B2A4A;
+            margin-top: 4px;
+        }
+
+        .top-posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .post-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #F0F1F3;
+            transition: box-shadow 0.3s;
+        }
+
+        .post-card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .post-image {
+            width: 100%;
+            height: 200px;
+            background-color: #E5E7EB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #9CA3AF;
+        }
+
+        .post-content {
+            padding: 16px;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 12px;
+        }
+
+        .post-type {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .post-engagement {
             font-size: 12px;
             font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s;
+            color: #E53935;
         }
 
-        .hashtag:hover {
-            transform: translateY(-2px);
+        .post-strengths {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .strength-item {
+            font-size: 11px;
+            color: #10B981;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .improvement-item {
+            font-size: 11px;
+            color: #F59E0B;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .competitor-posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .competitor-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #F0F1F3;
+        }
+
+        .competitor-brand {
+            font-weight: 600;
+            color: #1B2A4A;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .competitor-insight {
+            font-size: 11px;
+            color: #10B981;
+            background-color: #F0FDF4;
+            padding: 8px;
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .competitor-engagement {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .insight-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            border-left: 4px solid #E53935;
+            margin-bottom: 16px;
+        }
+
+        .insight-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #E53935;
+            text-transform: uppercase;
+        }
+
+        .insight-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1B2A4A;
+            margin-bottom: 4px;
+        }
+
+        .insight-text {
+            font-size: 12px;
+            color: #6B7280;
         }
 
         .template-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-            margin: 16px 0;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
         }
 
         .template-card {
             background: white;
-            border-radius: 8px;
             border: 2px solid #E5E7EB;
-            padding: 16px;
+            border-radius: 6px;
+            padding: 12px;
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
@@ -476,351 +741,655 @@
 
         .template-card:hover {
             border-color: #E53935;
-            box-shadow: 0 4px 12px rgba(229, 57, 53, 0.15);
+            box-shadow: 0 2px 8px rgba(229, 57, 53, 0.1);
         }
 
         .template-icon {
-            font-size: 32px;
+            font-size: 24px;
             margin-bottom: 8px;
         }
 
         .template-name {
+            font-size: 12px;
             font-weight: 600;
             color: #1B2A4A;
+        }
+
+        .two-column-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .column-title {
             font-size: 13px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .post-type-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .post-type-btn {
+            padding: 8px 16px;
+            border: 1px solid #E5E7EB;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            color: #6B7280;
+            transition: all 0.3s;
+        }
+
+        .post-type-btn.active {
+            background-color: #E53935;
+            color: white;
+            border-color: #E53935;
+        }
+
+        .pilar-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .pilar-pill {
+            padding: 6px 12px;
+            border: 1px solid #E5E7EB;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            color: #6B7280;
+            transition: all 0.3s;
+        }
+
+        .pilar-pill.active {
+            background-color: #E53935;
+            color: white;
+            border-color: #E53935;
+        }
+
+        .textarea-field {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #1B2A4A;
+            resize: vertical;
+            margin-bottom: 12px;
+        }
+
+        .char-counter {
+            font-size: 11px;
+            color: #9CA3AF;
+            text-align: right;
+            margin-bottom: 16px;
+        }
+
+        .char-counter.warning {
+            color: #F59E0B;
+        }
+
+        .char-counter.danger {
+            color: #DC2626;
+        }
+
+        .selector-group {
+            margin-bottom: 16px;
+        }
+
+        .selector-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            color: #1B2A4A;
+            cursor: pointer;
+        }
+
+        .motor-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .motor-option {
+            padding: 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .motor-option:hover {
+            border-color: #E53935;
+        }
+
+        .motor-option.active {
+            background-color: #E53935;
+            color: white;
+            border-color: #E53935;
+        }
+
+        .motor-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .motor-desc {
+            font-size: 11px;
+            opacity: 0.7;
+        }
+
+        .formato-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .formato-option {
+            padding: 10px;
+            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .formato-option.active {
+            background-color: #E53935;
+            color: white;
+            border-color: #E53935;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #E53935;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #D32F2F;
+        }
+
+        .btn-secondary {
+            background-color: #F3F4F6;
+            color: #1B2A4A;
+            border: 1px solid #E5E7EB;
+        }
+
+        .btn-secondary:hover {
+            background-color: #E5E7EB;
+        }
+
+        .mobile-preview {
+            background: white;
+            border: 1px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .mobile-mockup {
+            width: 200px;
+            height: 350px;
+            border: 8px solid #1B2A4A;
+            border-radius: 24px;
+            background-color: #F0F1F3;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9CA3AF;
+            font-size: 12px;
+        }
+
+        .summary-table {
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #F0F1F3;
+            margin-bottom: 24px;
+        }
+
+        .summary-table td {
+            padding: 12px;
+            border-bottom: 1px solid #F0F1F3;
+        }
+
+        .summary-table td:first-child {
+            font-weight: 600;
+            color: #6B7280;
+            background-color: #F9FAFB;
+            width: 40%;
+        }
+
+        .summary-table td:last-child {
+            color: #1B2A4A;
+            font-weight: 500;
+        }
+
+        .media-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 10px 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+        }
+
+        .view-btn {
+            padding: 8px 12px;
+            border: 1px solid #E5E7EB;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .view-btn.active {
+            background-color: #E53935;
+            color: white;
+            border-color: #E53935;
         }
 
         .media-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .media-item {
-            aspect-ratio: 1;
-            background: #E5E7EB;
-            border-radius: 8px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .media-item:hover {
-            transform: scale(1.05);
-        }
-
-        .media-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .media-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .media-item:hover .media-overlay {
-            opacity: 1;
-        }
-
-        .selector-input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #E5E7EB;
-            border-radius: 6px;
-            font-size: 13px;
-            margin-bottom: 12px;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .selector-input:focus {
-            outline: none;
-            border-color: #E53935;
-            box-shadow: 0 0 0 3px rgba(229, 57, 53, 0.1);
-        }
-
-        .upload-area {
-            border: 2px dashed #E5E7EB;
-            border-radius: 8px;
-            padding: 32px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: #F9FAFB;
-        }
-
-        .upload-area:hover {
-            border-color: #E53935;
-            background: #FEF2F2;
-        }
-
-        .upload-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
-        }
-
-        .upload-text {
-            font-size: 13px;
-            color: #6B7280;
-        }
-
-        .competitor-post {
-            background: white;
-            border-radius: 8px;
-            padding: 12px;
-            border: 1px solid #F0F1F3;
-            margin-bottom: 12px;
-            display: flex;
             gap: 12px;
-        }
-
-        .competitor-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #E53935 0%, #D32F2F 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-            font-size: 12px;
-            flex-shrink: 0;
-        }
-
-        .competitor-content {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .competitor-name {
-            font-weight: 600;
-            font-size: 13px;
-            color: #1B2A4A;
-        }
-
-        .competitor-text {
-            font-size: 12px;
-            color: #6B7280;
-            margin: 4px 0;
-        }
-
-        .competitor-engagement {
-            display: flex;
-            gap: 12px;
-            font-size: 11px;
-            color: #9CA3AF;
-        }
-
-        .footer {
-            background: white;
-            padding: 24px;
-            text-align: center;
-            color: #9CA3AF;
-            font-size: 12px;
-            border-top: 1px solid #E5E7EB;
-            margin-top: 48px;
-        }
-
-        .ecommerce-channels {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 16px;
             margin-bottom: 24px;
         }
 
-        .channel-card {
+        .media-item {
             background: white;
-            border-radius: 8px;
-            padding: 20px;
-            border: 1px solid #F0F1F3;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-        }
-
-        .channel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .channel-name {
-            font-weight: 700;
-            font-size: 16px;
-            color: #1B2A4A;
-        }
-
-        .channel-icon {
-            font-size: 24px;
-        }
-
-        .rating-large {
-            font-size: 24px;
-            font-weight: 700;
-            color: #E53935;
-        }
-
-        .reviews-count {
-            font-size: 12px;
-            color: #6B7280;
-        }
-
-        .channel-stat {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #F0F1F3;
-            font-size: 13px;
-        }
-
-        .channel-stat:last-child {
-            border-bottom: none;
-        }
-
-        .channel-stat-label {
-            color: #6B7280;
-        }
-
-        .channel-stat-value {
-            font-weight: 600;
-            color: #1B2A4A;
-        }
-
-        .trend-card {
-            background: linear-gradient(135deg, #FEF2F2 0%, #FFF5F5 100%);
-            border-left: 4px solid #E53935;
-            padding: 16px;
             border-radius: 6px;
-            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid #F0F1F3;
+            cursor: pointer;
+            transition: all 0.3s;
         }
 
-        .trend-title {
+        .media-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        .media-thumb {
+            width: 100%;
+            height: 120px;
+            background-color: #E5E7EB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #9CA3AF;
+        }
+
+        .media-info {
+            padding: 10px;
+        }
+
+        .media-title {
+            font-size: 11px;
             font-weight: 600;
             color: #1B2A4A;
-            margin-bottom: 8px;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .trend-stat {
+        .media-footer {
             display: flex;
-            gap: 16px;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: #9CA3AF;
         }
 
-        .trend-item {
-            flex: 1;
+        .media-usage {
+            background-color: #F0F1F3;
+            padding: 2px 6px;
+            border-radius: 3px;
         }
 
-        .trend-label {
-            font-size: 11px;
-            color: #6B7280;
-            text-transform: uppercase;
+        .media-category {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 9px;
             font-weight: 600;
             margin-bottom: 4px;
         }
 
-        .trend-value {
-            font-size: 18px;
-            font-weight: 700;
+        .category-wellness {
+            background-color: #DBEAFE;
+            color: #0369A1;
+        }
+
+        .category-productos {
+            background-color: #DCFCE7;
+            color: #166534;
+        }
+
+        .category-recetas {
+            background-color: #FEF3C7;
+            color: #B45309;
+        }
+
+        .category-lifestyle {
+            background-color: #E9D5FF;
+            color: #6B21A8;
+        }
+
+        .category-comunidad {
+            background-color: #FEE2E2;
+            color: #991B1B;
+        }
+
+        .freepik-card {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            border: 2px solid #E5E7EB;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .freepik-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 6px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            margin-right: 12px;
+        }
+
+        .freepik-badge {
+            background-color: #FEE2E2;
+            color: #DC2626;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .trending-hashtags {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .hashtag-pill {
+            background: white;
+            border: 1px solid #F0F1F3;
+            border-radius: 6px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .hashtag-name {
+            font-weight: 600;
             color: #E53935;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .hashtag-volume {
+            font-size: 11px;
+            color: #6B7280;
+            margin-bottom: 4px;
+        }
+
+        .hashtag-sentiment {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .hashtag-trend-up {
+            color: #10B981;
+        }
+
+        .hashtag-trend-down {
+            color: #EF4444;
+        }
+
+        .comparative-analysis {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .comparative-card {
+            background: white;
+            border: 1px solid #F0F1F3;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .comparative-card.us {
+            border: 2px solid #E53935;
+        }
+
+        .comp-brand {
+            font-weight: 700;
+            color: #1B2A4A;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .comp-metric {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid #F0F1F3;
+        }
+
+        .comp-metric:last-child {
+            border-bottom: none;
+        }
+
+        .comp-label {
+            color: #6B7280;
+        }
+
+        .comp-value {
+            color: #1B2A4A;
+            font-weight: 600;
+        }
+
+        .competitor-activity-chart {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #F0F1F3;
+            margin-bottom: 24px;
+        }
+
+        .competitor-feed {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #F0F1F3;
+            margin-bottom: 24px;
+        }
+
+        .competitor-feed-item {
+            padding: 12px;
+            border: 1px solid #F0F1F3;
+            border-radius: 6px;
+            margin-bottom: 12px;
+        }
+
+        .competitor-feed-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .comp-feed-brand {
+            font-weight: 600;
+            color: #1B2A4A;
+            font-size: 12px;
+        }
+
+        .comp-feed-engagement {
+            color: #E53935;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .comp-feed-insight {
+            background-color: #F0FDF4;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #15803D;
+            margin-top: 8px;
+        }
+
+        .awareness-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #F0F1F3;
+            margin-bottom: 24px;
+        }
+
+        .checkmark {
+            color: #10B981;
+            margin-right: 4px;
+        }
+
+        .warning-icon {
+            color: #F59E0B;
+            margin-right: 4px;
+        }
+
+        @media (max-width: 1200px) {
+            .two-column-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .calendar-header {
+                grid-template-columns: repeat(5, 1fr);
+            }
         }
 
         @media (max-width: 768px) {
             .header {
-                padding: 12px 16px;
                 flex-direction: column;
-                align-items: flex-start;
                 gap: 12px;
+                padding: 12px;
             }
 
             .header-left {
-                gap: 12px;
+                flex-direction: column;
+                gap: 8px;
             }
 
-            .logo {
-                font-size: 18px;
-                letter-spacing: 2px;
-            }
-
-            .header-right {
-                align-self: flex-end;
-            }
-
-            .container {
-                padding: 16px;
-            }
-
-            .grid,
-            .grid-2,
             .grid-4 {
                 grid-template-columns: 1fr;
             }
 
-            .tabs {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
+            .grid-2 {
+                grid-template-columns: 1fr;
             }
 
-            .tab {
-                padding: 10px 16px;
-                font-size: 12px;
+            .pipeline-summary {
+                grid-template-columns: repeat(2, 1fr);
             }
 
-            .card-value {
-                font-size: 20px;
+            .motor-selector {
+                grid-template-columns: 1fr;
             }
 
-            .section-title {
-                font-size: 16px;
-            }
-
-            .table-container {
-                font-size: 12px;
-            }
-
-            th, td {
-                padding: 8px;
+            .formato-selector {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .calendar-grid {
-                grid-template-columns: repeat(7, 1fr);
-                gap: 4px;
+                grid-template-columns: repeat(4, 1fr);
             }
 
-            .calendar-day {
-                padding: 4px;
-            }
-
-            .calendar-day-header {
-                font-size: 9px;
-            }
-
-            .calendar-item {
-                font-size: 8px;
-            }
-
-            .template-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            }
-
-            .media-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            }
-
-            .ecommerce-channels {
-                grid-template-columns: 1fr;
+            .calendar-header {
+                grid-template-columns: repeat(4, 1fr);
             }
         }
     </style>
@@ -829,783 +1398,1139 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } = window.Recharts;
+        const { useState } = React;
+        const { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } = Recharts;
 
-        // Sample data
-        const initialData = {
-            brand: "Pomona",
-            handle: "@pomonaproducts",
-            website: "pomonaorganic.com",
-            followers: 4850,
-            engagementRate: 5.2,
-            monthlyReach: 28400,
-            lastUpdated: "2026-03-30T16:00:00Z"
-        };
+        // Icon SVG Components
+        const IconFollowers = () => (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+        );
 
-        // Content data
-        const contentData = [
-            { id: 1, type: 'Reel', title: 'Morning Juice Routine', likes: 1248, comments: 156, shares: 89, saves: 342, date: '2026-03-28', engagement: 8.2 },
-            { id: 2, type: 'Carousel', title: 'Top 5 Superfoods', likes: 856, comments: 92, shares: 45, saves: 201, date: '2026-03-27', engagement: 6.1 },
-            { id: 3, type: 'Feed', title: 'New Product Launch', likes: 623, comments: 78, shares: 34, saves: 156, date: '2026-03-26', engagement: 4.8 },
-            { id: 4, type: 'Stories', title: 'Behind the Scenes', likes: 1456, comments: 203, shares: 112, saves: 468, date: '2026-03-25', engagement: 9.1 },
-            { id: 5, type: 'Reel', title: 'Detox Challenge', likes: 2145, comments: 287, shares: 178, saves: 612, date: '2026-03-24', engagement: 11.3 },
-            { id: 6, type: 'Feed', title: 'Customer Testimonial', likes: 734, comments: 95, shares: 52, saves: 189, date: '2026-03-23', engagement: 5.4 },
-        ];
+        const IconEngagement = () => (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        );
 
-        // Calendar data
-        const calendarData = [
-            { day: 1, items: [{ title: 'Post 1', status: 'publicado' }] },
-            { day: 2, items: [] },
-            { day: 3, items: [{ title: 'Post 2', status: 'publicado' }] },
-            { day: 4, items: [{ title: 'Post 3', status: 'programado' }] },
-            { day: 5, items: [] },
-            { day: 6, items: [{ title: 'Post 4', status: 'aprobado' }] },
-            { day: 7, items: [] },
-            { day: 8, items: [{ title: 'Post 5', status: 'borrador' }] },
-            { day: 9, items: [] },
-            { day: 10, items: [{ title: 'Post 6', status: 'publicado' }] },
-            { day: 11, items: [] },
-            { day: 12, items: [{ title: 'Post 7', status: 'idea' }] },
-            { day: 13, items: [] },
-            { day: 14, items: [] },
-            { day: 15, items: [{ title: 'Post 8', status: 'programado' }] },
-            { day: 16, items: [] },
-            { day: 17, items: [{ title: 'Post 9', status: 'publicado' }] },
-            { day: 18, items: [] },
-            { day: 19, items: [{ title: 'Post 10', status: 'aprobado' }] },
-            { day: 20, items: [] },
-            { day: 21, items: [{ title: 'Post 11', status: 'borrador' }] },
-            { day: 22, items: [] },
-            { day: 23, items: [] },
-            { day: 24, items: [{ title: 'Post 12', status: 'publicado' }] },
-            { day: 25, items: [{ title: 'Post 13', status: 'programado' }] },
-            { day: 26, items: [] },
-            { day: 27, items: [{ title: 'Post 14', status: 'idea' }] },
-            { day: 28, items: [] },
-            { day: 29, items: [{ title: 'Post 15', status: 'publicado' }] },
-            { day: 30, items: [{ title: 'Post 16', status: 'aprobado' }] },
-            { day: 31, items: [] },
-        ];
+        const IconTrendUp = () => (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 17"></polyline>
+                <polyline points="17 6 23 6 23 12"></polyline>
+            </svg>
+        );
 
-        // Follower growth data
+        const IconRating = () => (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+            </svg>
+        );
+
+        const IconCheck = () => (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        );
+
+        const IconWarning = () => (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12" strokeWidth="2" stroke="white"></line>
+                <circle cx="12" cy="16" r="1" fill="white"></circle>
+            </svg>
+        );
+
+        const IconArrowUp = () => (
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 17"></polyline>
+            </svg>
+        );
+
+        const IconArrowDown = () => (
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+            </svg>
+        );
+
+        // Data
         const followerData = [
-            { month: 'Oct', followers: 3200 },
-            { month: 'Nov', followers: 3650 },
-            { month: 'Dec', followers: 4100 },
-            { month: 'Jan', followers: 4350 },
-            { month: 'Feb', followers: 4620 },
-            { month: 'Mar', followers: 4850 },
+            { month: 'Ene', followers: 4200 },
+            { month: 'Feb', followers: 4450 },
+            { month: 'Mar', followers: 4620 },
+            { month: 'Abr', followers: 4750 },
+            { month: 'May', followers: 4850 },
         ];
 
-        // Engagement by day
-        const engagementByDay = [
-            { day: 'Lun', engagement: 4.2 },
-            { day: 'Mar', engagement: 5.8 },
-            { day: 'Mié', engagement: 4.9 },
-            { day: 'Jue', engagement: 6.3 },
-            { day: 'Vie', engagement: 7.1 },
-            { day: 'Sab', engagement: 8.4 },
-            { day: 'Dom', engagement: 3.2 },
+        const engagementData = [
+            { day: 'Lun', engagement: 320 },
+            { day: 'Mar', engagement: 450 },
+            { day: 'Mié', engagement: 280 },
+            { day: 'Jue', engagement: 520 },
+            { day: 'Vie', engagement: 680 },
+            { day: 'Sáb', engagement: 420 },
+            { day: 'Dom', engagement: 350 },
         ];
 
-        // Reach and impressions
-        const reachData = [
-            { week: 'Sem 1', reach: 6200, impressions: 18500 },
-            { week: 'Sem 2', reach: 7100, impressions: 21200 },
-            { week: 'Sem 3', reach: 8300, impressions: 24800 },
-            { week: 'Sem 4', reach: 6800, impressions: 20100 },
+        const reachImpressionsData = [
+            { week: 'Sem 1', reach: 2400, impressions: 3100 },
+            { week: 'Sem 2', reach: 2800, impressions: 3600 },
+            { week: 'Sem 3', reach: 3200, impressions: 4100 },
+            { week: 'Sem 4', reach: 3600, impressions: 4700 },
+            { week: 'Sem 5', reach: 4100, impressions: 5200 },
         ];
 
-        // Content pillars
-        const pillarsData = [
-            { name: 'Wellness', value: 30, fill: '#E53935' },
-            { name: 'Recetas', value: 25, fill: '#FF7043' },
-            { name: 'Producto', value: 20, fill: '#FF9800' },
-            { name: 'Educación', value: 15, fill: '#FFC107' },
-            { name: 'Comunidad', value: 10, fill: '#FF5722' },
+        const pillarData = [
+            { name: 'Wellness', value: 30, fill: '#3B82F6' },
+            { name: 'Productos', value: 25, fill: '#10B981' },
+            { name: 'Recetas', value: 20, fill: '#F59E0B' },
+            { name: 'Lifestyle', value: 15, fill: '#8B5CF6' },
+            { name: 'Comunidad', value: 10, fill: '#E53935' },
         ];
 
-        // Ratings trend
-        const ratingsTrendData = [
-            { date: 'Mar 1', rating: 4.4 },
-            { date: 'Mar 7', rating: 4.5 },
-            { date: 'Mar 14', rating: 4.55 },
-            { date: 'Mar 21', rating: 4.58 },
-            { date: 'Mar 28', rating: 4.6 },
+        const ratingTrendData = [
+            { month: 'Oct', rating: 4.4 },
+            { month: 'Nov', rating: 4.45 },
+            { month: 'Dic', rating: 4.5 },
+            { month: 'Ene', rating: 4.55 },
+            { month: 'Feb', rating: 4.58 },
+            { month: 'Mar', rating: 4.6 },
         ];
 
-        // Sentiment data
         const sentimentData = [
-            { category: 'Sabor', sentiment: 92 },
-            { category: 'Calidad', sentiment: 88 },
-            { category: 'Empaque', sentiment: 75 },
-            { category: 'Precio', sentiment: 58 },
-            { category: 'Envío', sentiment: 82 },
+            { category: 'Producto', positive: 85, neutral: 10, negative: 5 },
+            { category: 'Servicio', positive: 78, neutral: 15, negative: 7 },
+            { category: 'Envío', positive: 72, neutral: 18, negative: 10 },
+            { category: 'Precio', positive: 65, neutral: 20, negative: 15 },
+            { category: 'Sabor', positive: 90, neutral: 7, negative: 3 },
+            { category: 'Packaging', positive: 80, neutral: 12, negative: 8 },
         ];
 
-        // Keywords
-        const keywordsData = [
-            { keyword: 'Delicioso', count: 145 },
-            { keyword: 'Orgánico', count: 128 },
-            { keyword: 'Recomendado', count: 112 },
-            { keyword: 'Saludable', count: 98 },
-            { keyword: 'Fresco', count: 87 },
-            { keyword: 'Energía', count: 76 },
-        ];
-
-        // Competitor activity
         const competitorActivityData = [
-            { competitor: 'Health Co', posts: 8, engagement: 6.2 },
-            { competitor: 'Pure Juice', posts: 12, engagement: 7.8 },
-            { competitor: 'Wellness Co', posts: 6, engagement: 5.1 },
-            { competitor: 'Natural Life', posts: 10, engagement: 6.9 },
+            { day: 'Lun', healthco: 2, purejuice: 3, wellnessco: 1, naturallife: 2 },
+            { day: 'Mar', healthco: 3, purejuice: 2, wellnessco: 2, naturallife: 3 },
+            { day: 'Mié', healthco: 1, purejuice: 4, wellnessco: 3, naturallife: 1 },
+            { day: 'Jue', healthco: 2, purejuice: 2, wellnessco: 2, naturallife: 3 },
+            { day: 'Vie', healthco: 4, purejuice: 3, wellnessco: 4, naturallife: 2 },
+            { day: 'Sáb', healthco: 3, purejuice: 1, wellnessco: 2, naturallife: 4 },
+            { day: 'Dom', healthco: 1, purejuice: 2, wellnessco: 1, naturallife: 2 },
         ];
 
-        // Competitor posts
+        const contentTypeData = [
+            { type: 'Reels', engagement: 2400, views: 8500 },
+            { type: 'Carousels', engagement: 1800, views: 6200 },
+            { type: 'Feed', engagement: 1200, views: 4100 },
+            { type: 'Stories', engagement: 800, views: 3200 },
+        ];
+
+        const reviews = [
+            { platform: 'amazon', name: 'María G.', rating: 5, excerpt: 'Jugo excelente, muy fresco y saludable. Lo recomiendo totalmente.', date: 'Hace 2 días', id: 1 },
+            { platform: 'trustpilot', name: 'Juan P.', rating: 5, excerpt: 'Envío rápido y productos de excelente calidad. Muy satisfecho.', date: 'Hace 4 días', id: 2 },
+            { platform: 'iherb', name: 'Laura M.', rating: 4, excerpt: 'Buen producto pero el packaging podría mejorar un poco.', date: 'Hace 5 días', id: 3 },
+            { platform: 'website', name: 'Carlos R.', rating: 5, excerpt: 'El mejor jugo detox que he probado. Definitivamente vuelvo a comprar.', date: 'Hace 1 semana', id: 4 },
+            { platform: 'amazon', name: 'Sofia T.', rating: 4, excerpt: 'Sabor delicioso, aunque esperaba mayor cantidad en la botella.', date: 'Hace 1 semana', id: 5 },
+            { platform: 'trustpilot', name: 'Miguel A.', rating: 5, excerpt: 'Ingredientes naturales y orgánicos. Excelente relación precio-calidad.', date: 'Hace 1 semana', id: 6 },
+        ];
+
+        const topPosts = [
+            { id: 1, type: 'Reel', engagement: 2850, image: 'Reel', strengths: ['Buen uso de CTA', 'Tendencia aprovechada', 'Alto engagement'], weakness: 'Descripción muy larga' },
+            { id: 2, type: 'Carousel', engagement: 2120, image: 'Carousel', strengths: ['Excelentes fotos', 'Buen flow'], weakness: 'CTA poco claro' },
+            { id: 3, type: 'Feed', engagement: 1840, image: 'Feed', strengths: ['Composición perfecta', 'Colores atractivos'], weakness: 'Hashtags no optimizados' },
+            { id: 4, type: 'Story', engagement: 1650, image: 'Story', strengths: ['Interactividad', 'Respuesta rápida'], weakness: 'Texto pequeño' },
+        ];
+
         const competitorPosts = [
-            { brand: 'Health Co', content: 'New superfood blend just dropped! 🌿', engagement: 324 },
-            { brand: 'Pure Juice', content: 'Summer cleanse challenge starting now!', engagement: 456 },
-            { brand: 'Wellness Co', content: 'Top 10 health benefits of turmeric', engagement: 189 },
-            { brand: 'Natural Life', content: 'Customer success story in our latest reel', engagement: 312 },
+            { brand: 'Health Co', engagement: 1620, insight: 'Estrategia de UGC efectiva' },
+            { brand: 'Pure Juice', engagement: 2350, insight: 'Buen timing de publicación' },
+            { brand: 'Wellness Co', engagement: 1890, insight: 'Contenido colaborativo' },
+            { brand: 'Natural Life', engagement: 2100, insight: 'Promociones bien segmentadas' },
         ];
 
-        const COLORS = ['#E53935', '#FF7043', '#FF9800', '#FFC107', '#FF5722'];
+        const mediaLibraryItems = [
+            { id: 1, title: 'Morning Juice', date: '15 Mar', category: 'productos', usage: 3 },
+            { id: 2, title: 'Cleanse Challenge', date: '14 Mar', category: 'recetas', usage: 2 },
+            { id: 3, title: 'Wellness Tip', date: '13 Mar', category: 'wellness', usage: 5 },
+            { id: 4, title: 'Customer Smile', date: '12 Mar', category: 'comunidad', usage: 1 },
+            { id: 5, title: 'Detox Prep', date: '11 Mar', category: 'recetas', usage: 4 },
+            { id: 6, title: 'Lifestyle Photo', date: '10 Mar', category: 'lifestyle', usage: 2 },
+            { id: 7, title: 'Product Shot', date: '09 Mar', category: 'productos', usage: 6 },
+            { id: 8, title: 'Green Smoothie', date: '08 Mar', category: 'wellness', usage: 3 },
+            { id: 9, title: 'Customer Review', date: '07 Mar', category: 'comunidad', usage: 1 },
+            { id: 10, title: 'Sunset Scene', date: '06 Mar', category: 'lifestyle', usage: 2 },
+        ];
 
-        function PomatonaApp() {
-            const [activeTab, setActiveTab] = useState('overview');
-            const [contentFilter, setContentFilter] = useState('Todos');
-            const [mediaFilter, setMediaFilter] = useState('Todos');
+        const ecommerceChannels = [
+            { name: 'Amazon', icon: '📦', sales: '$12,450', growth: '+18%', orders: 324 },
+            { name: 'Website', icon: '🌐', sales: '$8,920', growth: '+25%', orders: 156 },
+            { name: 'Trustpilot', icon: '⭐', sales: '$5,680', growth: '+12%', orders: 89 },
+            { name: 'iHerb', icon: '🏪', sales: '$6,200', growth: '+22%', orders: 142 },
+        ];
 
-            const filteredContent = contentFilter === 'Todos'
-                ? contentData
-                : contentData.filter(item => item.type === contentFilter);
+        const trendingHashtags = [
+            { tag: '#JuiceCleanse', posts: 8400, trend: 'up', sentiment: 92 },
+            { tag: '#OrganicLife', posts: 6200, trend: 'up', sentiment: 88 },
+            { tag: '#WellnessJourney', posts: 5100, trend: 'up', sentiment: 85 },
+            { tag: '#ColdPressed', posts: 4800, trend: 'up', sentiment: 90 },
+            { tag: '#HealthyLiving', posts: 4200, trend: 'down', sentiment: 82 },
+            { tag: '#DetoxJuice', posts: 3900, trend: 'up', sentiment: 87 },
+            { tag: '#PlantBased', posts: 3400, trend: 'down', sentiment: 84 },
+            { tag: '#CleanEating', posts: 3100, trend: 'up', sentiment: 86 },
+        ];
 
-            const tabs = [
-                { id: 'overview', label: 'Overview' },
-                { id: 'reputacion', label: 'Reputación' },
-                { id: 'contenido', label: 'Contenido' },
-                { id: 'calendario', label: 'Calendario' },
-                { id: 'inteligencia', label: 'Inteligencia' },
-                { id: 'crear', label: 'Crear Post' },
-                { id: 'media', label: 'Media Library' },
-                { id: 'ecommerce', label: 'E-commerce' },
+        const comparativeData = [
+            { name: 'Pomona', followers: '4,850', engagement: '8.2%', rating: '4.6/5', reviews: '1,247' },
+            { name: 'Health Co', followers: '12,400', engagement: '5.8%', rating: '4.3/5', reviews: '3,200' },
+            { name: 'Pure Juice', followers: '8,900', engagement: '6.4%', rating: '4.5/5', reviews: '2,100' },
+            { name: 'Wellness Co', followers: '6,200', engagement: '7.1%', rating: '4.4/5', reviews: '1,800' },
+        ];
+
+        // Main App Component
+        function App() {
+            const [activeTab, setActiveTab] = useState(0);
+            const [contentFilter, setContentFilter] = useState('todos');
+            const [mediaFilter, setMediaFilter] = useState('todos');
+            const [mediaSearchQuery, setMediaSearchQuery] = useState('');
+            const [mediaViewMode, setMediaViewMode] = useState('grid');
+            const [selectedPostType, setSelectedPostType] = useState('Feed');
+            const [selectedPilar, setSelectedPilar] = useState('Productos');
+            const [selectedMotor, setSelectedMotor] = useState('Sharpy');
+            const [selectedFormato, setSelectedFormato] = useState('1:1');
+            const [caption, setCaption] = useState('');
+            const [imagePrompt, setImagePrompt] = useState('');
+            const [freepikApiKey, setFreepikApiKey] = useState('');
+            const [calendarMonth, setCalendarMonth] = useState(3);
+            const [calendarYear, setCalendarYear] = useState(2026);
+            const [selectedCalendarItem, setSelectedCalendarItem] = useState(null);
+            const [expandedPlatform, setExpandedPlatform] = useState(null);
+
+            const tabs = ['Resumen', 'Reputación', 'Contenido', 'Calendario', 'Inteligencia', 'Crear Post', 'Librería de Medios', 'E-Commerce'];
+            const pillars = ['Wellness', 'Productos', 'Recetas', 'Lifestyle', 'Comunidad'];
+            const motors = [
+                { name: 'Sharpy', desc: 'Fotorrealista' },
+                { name: 'Illusio', desc: 'Ilustraciones' },
+                { name: 'Sparkle', desc: 'Equilibrado' },
             ];
+            const formatos = ['1:1', '4:5', '9:16', '16:9'];
+            const mediaCategories = ['todos', 'wellness', 'productos', 'recetas', 'lifestyle', 'comunidad'];
+            const contentTypes = ['todos', 'reels', 'carousels', 'feed', 'stories'];
+
+            // Get calendar data for current month
+            const getDaysInMonth = (month, year) => new Date(year, month, 0).getDate();
+            const getFirstDayOfMonth = (month, year) => new Date(year, month - 1, 1).getDay();
+
+            const daysInMonth = getDaysInMonth(calendarMonth, calendarYear);
+            const firstDay = getFirstDayOfMonth(calendarMonth, calendarYear);
+            const calendarEvents = {
+                5: { type: 'idea', label: 'Idea' },
+                8: { type: 'borrador', label: 'Borrador' },
+                12: { type: 'aprobado', label: 'Aprobado' },
+                15: { type: 'programado', label: 'Programado' },
+                18: { type: 'publicado', label: 'Publicado' },
+                22: { type: 'publicado', label: 'Publicado' },
+                25: { type: 'programado', label: 'Programado' },
+            };
+
+            const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+            // Filtered media
+            const filteredMedia = mediaLibraryItems.filter(item => {
+                const matchesCategory = mediaFilter === 'todos' || item.category === mediaFilter;
+                const matchesSearch = item.title.toLowerCase().includes(mediaSearchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            const handlePrevMonth = () => {
+                if (calendarMonth === 1) {
+                    setCalendarMonth(12);
+                    setCalendarYear(calendarYear - 1);
+                } else {
+                    setCalendarMonth(calendarMonth - 1);
+                }
+            };
+
+            const handleNextMonth = () => {
+                if (calendarMonth === 12) {
+                    setCalendarMonth(1);
+                    setCalendarYear(calendarYear + 1);
+                } else {
+                    setCalendarMonth(calendarMonth + 1);
+                }
+            };
 
             return (
                 <>
-                    <header className="header">
+                    {/* Header */}
+                    <div className="header">
                         <div className="header-left">
                             <div className="logo">POMONA</div>
                             <div className="header-info">
                                 <div className="header-title">Brand Management Suite</div>
-                                <div className="header-subtitle">@pomonaproducts • 4.9K followers • E-commerce</div>
+                                <div className="header-subtitle">@pomonaproducts</div>
                             </div>
                         </div>
                         <div className="header-right">
                             <div className="badge">
-                                <div className="badge-dot"></div>
-                                APIs Connected
+                                <span className="badge-dot"></span>
+                                <span>En Línea</span>
                             </div>
                             <div className="settings-icon">⚙️</div>
                         </div>
-                    </header>
+                    </div>
 
+                    {/* Container */}
                     <div className="container">
+                        {/* Tabs */}
                         <div className="tabs">
-                            {tabs.map(tab => (
+                            {tabs.map((tab, idx) => (
                                 <button
-                                    key={tab.id}
-                                    className={`tab ${activeTab === tab.id ? 'active' : ''}`}
-                                    onClick={() => setActiveTab(tab.id)}
+                                    key={idx}
+                                    className={`tab ${activeTab === idx ? 'active' : ''}`}
+                                    onClick={() => setActiveTab(idx)}
                                 >
-                                    {tab.label}
+                                    {tab}
                                 </button>
                             ))}
                         </div>
 
+                        {/* Tab Content */}
                         <div className="content">
-                            {/* Overview Tab */}
-                            {activeTab === 'overview' && (
+                            {/* TAB 1: OVERVIEW */}
+                            {activeTab === 0 && (
                                 <>
+                                    {/* KPI Cards */}
                                     <div className="grid grid-4">
                                         <div className="card">
+                                            <div className="card-icon" style={{ color: '#E53935' }}>👥</div>
                                             <div className="card-title">Seguidores</div>
                                             <div className="card-value">4,850</div>
-                                            <div className="card-detail positive">+8.2% este mes</div>
+                                            <div className="card-detail positive">↑ 150 esta semana</div>
+                                            <div className="card-trend positive"><IconArrowUp /> 3.2% semanal</div>
                                         </div>
                                         <div className="card">
-                                            <div className="card-title">Engagement Rate</div>
-                                            <div className="card-value">5.2%</div>
-                                            <div className="card-detail positive">+0.4% vs mes anterior</div>
+                                            <div className="card-icon" style={{ color: '#F59E0B' }}>💬</div>
+                                            <div className="card-title">Engagement</div>
+                                            <div className="card-value">8.2%</div>
+                                            <div className="card-detail positive">↑ 0.4% vs semana anterior</div>
+                                            <div className="card-trend positive"><IconArrowUp /> Muy bueno</div>
                                         </div>
                                         <div className="card">
-                                            <div className="card-title">Alcance Mensual</div>
-                                            <div className="card-value">28.4K</div>
-                                            <div className="card-detail positive">+12.3% crecimiento</div>
+                                            <div className="card-icon" style={{ color: '#10B981' }}>📊</div>
+                                            <div className="card-title">Alcance</div>
+                                            <div className="card-value">42.3K</div>
+                                            <div className="card-detail positive">↑ 8,200 esta semana</div>
+                                            <div className="card-trend positive"><IconArrowUp /> 24% semanal</div>
                                         </div>
                                         <div className="card">
-                                            <div className="card-title">Best Performer</div>
-                                            <div className="card-value">6.8K</div>
-                                            <div className="card-detail">Reel - Detox Challenge</div>
+                                            <div className="card-icon" style={{ color: '#3B82F6' }}>⭐</div>
+                                            <div className="card-title">Rating Promedio</div>
+                                            <div className="card-value">4.6</div>
+                                            <div className="card-detail positive">↑ 0.05 vs mes anterior</div>
+                                            <div className="card-trend positive"><IconArrowUp /> Excelente</div>
                                         </div>
                                     </div>
 
-                                    <div className="section-title">Crecimiento de Seguidores</div>
+                                    {/* Charts */}
                                     <div className="chart-container">
+                                        <h3 className="section-title">Crecimiento de Seguidores</h3>
                                         <ResponsiveContainer width="100%" height={300}>
                                             <LineChart data={followerData}>
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
                                                 <XAxis dataKey="month" />
                                                 <YAxis />
-                                                <Tooltip
-                                                    contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
-                                                />
-                                                <Line
-                                                    type="monotone"
-                                                    dataKey="followers"
-                                                    stroke="#E53935"
-                                                    strokeWidth={3}
-                                                    dot={{ fill: '#E53935', r: 6 }}
-                                                />
+                                                <Tooltip />
+                                                <Line type="monotone" dataKey="followers" stroke="#E53935" strokeWidth={2} dot={{ fill: '#E53935', r: 4 }} />
                                             </LineChart>
                                         </ResponsiveContainer>
                                     </div>
 
-                                    <div className="section-title">Engagement por Día</div>
                                     <div className="chart-container">
+                                        <h3 className="section-title">Engagement por Día</h3>
                                         <ResponsiveContainer width="100%" height={300}>
-                                            <BarChart data={engagementByDay}>
+                                            <BarChart data={engagementData}>
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
                                                 <XAxis dataKey="day" />
                                                 <YAxis />
-                                                <Tooltip
-                                                    contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
-                                                />
+                                                <Tooltip />
                                                 <Bar dataKey="engagement" fill="#E53935" radius={[8, 8, 0, 0]} />
                                             </BarChart>
                                         </ResponsiveContainer>
                                     </div>
 
-                                    <div className="grid grid-2">
-                                        <div className="chart-container">
-                                            <h3 className="section-title" style={{ marginTop: 0 }}>Alcance e Impresiones</h3>
-                                            <ResponsiveContainer width="100%" height={300}>
-                                                <BarChart data={reachData}>
-                                                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                                                    <XAxis dataKey="week" />
-                                                    <YAxis />
-                                                    <Tooltip
-                                                        contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
-                                                    />
-                                                    <Legend />
-                                                    <Bar dataKey="reach" fill="#E53935" radius={[8, 8, 0, 0]} />
-                                                    <Bar dataKey="impressions" fill="#FF9800" radius={[8, 8, 0, 0]} />
-                                                </BarChart>
-                                            </ResponsiveContainer>
-                                        </div>
-
-                                        <div className="chart-container">
-                                            <h3 className="section-title" style={{ marginTop: 0 }}>Pilares de Contenido</h3>
-                                            <ResponsiveContainer width="100%" height={300}>
-                                                <PieChart>
-                                                    <Pie
-                                                        data={pillarsData}
-                                                        cx="50%"
-                                                        cy="50%"
-                                                        labelLine={false}
-                                                        label={({ name, value }) => `${name}: ${value}%`}
-                                                        outerRadius={80}
-                                                        fill="#8884d8"
-                                                        dataKey="value"
-                                                    >
-                                                        {pillarsData.map((entry, index) => (
-                                                            <Cell key={`cell-${index}`} fill={entry.fill} />
-                                                        ))}
-                                                    </Pie>
-                                                    <Tooltip />
-                                                </PieChart>
-                                            </ResponsiveContainer>
-                                        </div>
-                                    </div>
-                                </>
-                            )}
-
-                            {/* Reputación Tab */}
-                            {activeTab === 'reputacion' && (
-                                <>
-                                    <div className="grid grid-4">
-                                        <div className="card">
-                                            <div className="card-title">Rating Promedio</div>
-                                            <div className="card-value">4.6</div>
-                                            <div className="card-detail">De 5.0 estrellas</div>
-                                        </div>
-                                        <div className="card">
-                                            <div className="card-title">Total Reviews</div>
-                                            <div className="card-value">1,247</div>
-                                            <div className="card-detail positive">+234 este mes</div>
-                                        </div>
-                                        <div className="card">
-                                            <div className="card-title">Response Rate</div>
-                                            <div className="card-value">78%</div>
-                                            <div className="card-detail">Tiempo promedio: 24h</div>
-                                        </div>
-                                        <div className="card">
-                                            <div className="card-title">Sin Responder</div>
-                                            <div className="card-value">5</div>
-                                            <div className="card-detail warning">Requiere atención</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="section-title">Plataformas</div>
-                                    <div>
-                                        <div className="platform-card">
-                                            <div className="platform-header">
-                                                <div className="platform-name">🛒 Amazon</div>
-                                                <div className="platform-rating">4.5/5.0</div>
-                                            </div>
-                                            <div className="platform-stats">
-                                                <div className="stat-item">
-                                                    <div className="stat-label">Reviews</div>
-                                                    <div className="stat-value">892</div>
-                                                </div>
-                                                <div className="stat-item">
-                                                    <div className="stat-label">Sentimiento</div>
-                                                    <div className="stat-value">Positivo</div>
-                                                </div>
-                                            </div>
-                                            <div className="sentiment-bar">
-                                                <div className="sentiment-fill" style={{ width: '89%' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div className="platform-card">
-                                            <div className="platform-header">
-                                                <div className="platform-name">🌐 Website</div>
-                                                <div className="platform-rating">4.7/5.0</div>
-                                            </div>
-                                            <div className="platform-stats">
-                                                <div className="stat-item">
-                                                    <div className="stat-label">Reviews</div>
-                                                    <div className="stat-value">198</div>
-                                                </div>
-                                                <div className="stat-item">
-                                                    <div className="stat-label">Sentimiento</div>
-                                                    <div className="stat-value">Muy Positivo</div>
-                                                </div>
-                                            </div>
-                                            <div className="sentiment-bar">
-                                                <div className="sentiment-fill" style={{ width: '94%' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div className="platform-card">
-                                            <div className="platform-header">
-                                                <div className="platform-name">⭐ Trustpilot</div>
-                                                <div className="platform-rating">4.4/5.0</div>
-                                            </div>
-                                            <div className="platform-stats">
-                                                <div className="stat-item">
-                                                    <div className="stat-label">Reviews</div>
-                                                    <div className="stat-value">112</div>
-                                                </div>
-                                                <div className="stat-item">
-                                                    <div className="stat-label">Sentimiento</div>
-                                                    <div className="stat-value">Positivo</div>
-                                                </div>
-                                            </div>
-                                            <div className="sentiment-bar">
-                                                <div className="sentiment-fill" style={{ width: '88%' }}></div>
-                                            </div>
-                                        </div>
-
-                                        <div className="platform-card">
-                                            <div className="platform-header">
-                                                <div className="platform-name">💚 iHerb</div>
-                                                <div className="platform-rating">4.6/5.0</div>
-                                            </div>
-                                            <div className="platform-stats">
-                                                <div className="stat-item">
-                                                    <div className="stat-label">Reviews</div>
-                                                    <div className="stat-value">45</div>
-                                                </div>
-                                                <div className="stat-item">
-                                                    <div className="stat-label">Sentimiento</div>
-                                                    <div className="stat-value">Positivo</div>
-                                                </div>
-                                            </div>
-                                            <div className="sentiment-bar">
-                                                <div className="sentiment-fill" style={{ width: '92%' }}></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="section-title">Tendencia de Ratings</div>
                                     <div className="chart-container">
+                                        <h3 className="section-title">Alcance e Impresiones</h3>
                                         <ResponsiveContainer width="100%" height={300}>
-                                            <LineChart data={ratingsTrendData}>
+                                            <LineChart data={reachImpressionsData}>
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                                                <XAxis dataKey="date" />
-                                                <YAxis domain={[4.0, 5.0]} />
-                                                <Tooltip
-                                                    contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
-                                                />
-                                                <Line
-                                                    type="monotone"
-                                                    dataKey="rating"
-                                                    stroke="#E53935"
-                                                    strokeWidth={3}
-                                                    dot={{ fill: '#E53935', r: 6 }}
-                                                />
+                                                <XAxis dataKey="week" />
+                                                <YAxis />
+                                                <Tooltip />
+                                                <Legend />
+                                                <Line type="monotone" dataKey="reach" stroke="#E53935" strokeWidth={2} />
+                                                <Line type="monotone" dataKey="impressions" stroke="#3B82F6" strokeWidth={2} />
                                             </LineChart>
                                         </ResponsiveContainer>
                                     </div>
 
-                                    <div className="section-title">Sentimiento por Categoría</div>
                                     <div className="chart-container">
+                                        <h3 className="section-title">Pilares de Contenido</h3>
                                         <ResponsiveContainer width="100%" height={300}>
-                                            <BarChart data={sentimentData}>
-                                                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                                                <XAxis dataKey="category" />
-                                                <YAxis />
-                                                <Tooltip
-                                                    contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
-                                                />
-                                                <Bar dataKey="sentiment" fill="#10B981" radius={[8, 8, 0, 0]} />
-                                            </BarChart>
+                                            <PieChart>
+                                                <Pie data={pillarData} cx="50%" cy="50%" labelLine={false} label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} outerRadius={100} fill="#8884d8" dataKey="value">
+                                                    {pillarData.map((entry, index) => (
+                                                        <Cell key={`cell-${index}`} fill={entry.fill} />
+                                                    ))}
+                                                </Pie>
+                                                <Tooltip />
+                                            </PieChart>
                                         </ResponsiveContainer>
                                     </div>
 
-                                    <div className="section-title">Palabras Clave Principales</div>
-                                    <div className="grid grid-4">
-                                        {keywordsData.map((item, idx) => (
-                                            <div className="card" key={idx}>
-                                                <div className="card-title">{item.keyword}</div>
-                                                <div className="card-value">{item.count}</div>
-                                                <div className="card-detail">Menciones</div>
+                                    <div className="chart-container">
+                                        <h3 className="section-title">Reconocimientos</h3>
+                                        <div className="grid grid-4">
+                                            <div className="card">
+                                                <div style={{ fontSize: '28px', marginBottom: '8px' }}>🏆</div>
+                                                <div className="card-title">Mejor Reel</div>
+                                                <div style={{ fontSize: '13px', color: '#1B2A4A', marginTop: '8px' }}>Marzo 2026</div>
+                                                <div style={{ fontSize: '11px', color: '#6B7280' }}>8,450 interacciones</div>
                                             </div>
-                                        ))}
+                                            <div className="card">
+                                                <div style={{ fontSize: '28px', marginBottom: '8px' }}>⭐</div>
+                                                <div className="card-title">Top Engagement</div>
+                                                <div style={{ fontSize: '13px', color: '#1B2A4A', marginTop: '8px' }}>2 semanas consecutivas</div>
+                                                <div style={{ fontSize: '11px', color: '#6B7280' }}>9.2% engagement rate</div>
+                                            </div>
+                                            <div className="card">
+                                                <div style={{ fontSize: '28px', marginBottom: '8px' }}>🥇</div>
+                                                <div className="card-title">Brand Preferred</div>
+                                                <div style={{ fontSize: '13px', color: '#1B2A4A', marginTop: '8px' }}>Wellness Premium</div>
+                                                <div style={{ fontSize: '11px', color: '#6B7280' }}>Certificado 2026</div>
+                                            </div>
+                                            <div className="card">
+                                                <div style={{ fontSize: '28px', marginBottom: '8px' }}>🎯</div>
+                                                <div className="card-title">Creator Partner</div>
+                                                <div style={{ fontSize: '13px', color: '#1B2A4A', marginTop: '8px' }}>Nivel Gold</div>
+                                                <div style={{ fontSize: '11px', color: '#6B7280' }}>+ 4,500 followers</div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </>
                             )}
 
-                            {/* Contenido Tab */}
-                            {activeTab === 'contenido' && (
+                            {/* TAB 2: REPUTATION */}
+                            {activeTab === 1 && (
                                 <>
-                                    <div className="section-title">Posts Recientes</div>
-                                    <div className="filters">
-                                        {['Todos', 'Reels', 'Carousel', 'Feed', 'Stories'].map(filter => (
-                                            <button
-                                                key={filter}
-                                                className={`filter-btn ${contentFilter === filter ? 'active' : ''}`}
-                                                onClick={() => setContentFilter(filter)}
-                                            >
-                                                {filter}
-                                            </button>
+                                    {/* Reputation KPIs */}
+                                    <div className="grid grid-4">
+                                        <div className="card">
+                                            <div className="card-icon" style={{ color: '#F59E0B' }}>⭐</div>
+                                            <div className="card-title">Rating Global</div>
+                                            <div className="card-value">4.6</div>
+                                            <div className="card-detail positive">↑ 0.05 este mes</div>
+                                            <div className="card-trend positive"><IconArrowUp /> Muy bueno</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-icon" style={{ color: '#3B82F6' }}>📝</div>
+                                            <div className="card-title">Reseñas Totales</div>
+                                            <div className="card-value">1,247</div>
+                                            <div className="card-detail positive">↑ 180 este mes</div>
+                                            <div className="card-trend positive"><IconArrowUp /> 16.8% mensual</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-icon" style={{ color: '#10B981' }}>✓</div>
+                                            <div className="card-title">Tasa Respuesta</div>
+                                            <div className="card-value">78%</div>
+                                            <div className="card-detail positive">↑ 3% vs mes anterior</div>
+                                            <div className="card-trend positive"><IconArrowUp /> Excelente</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-icon" style={{ color: '#EF4444' }}>⏳</div>
+                                            <div className="card-title">Sin Responder</div>
+                                            <div className="card-value">5</div>
+                                            <div className="card-detail warning">⏳ Pendientes</div>
+                                            <div className="card-trend" style={{ color: '#F59E0B' }}>Responder hoy</div>
+                                        </div>
+                                    </div>
+
+                                    {/* Platform Cards */}
+                                    <h3 className="section-title">Plataformas</h3>
+                                    <div className="grid grid-4">
+                                        <div className="platform-card" onClick={() => setExpandedPlatform(expandedPlatform === 'amazon' ? null : 'amazon')}>
+                                            <div className="platform-icon">📦</div>
+                                            <div className="platform-name">Amazon</div>
+                                            <div className="platform-stat">Rating: 4.7 ⭐</div>
+                                            <div className="platform-stat">412 reseñas</div>
+                                        </div>
+                                        <div className="platform-card" onClick={() => setExpandedPlatform(expandedPlatform === 'website' ? null : 'website')}>
+                                            <div className="platform-icon">🌐</div>
+                                            <div className="platform-name">Website</div>
+                                            <div className="platform-stat">Rating: 4.5 ⭐</div>
+                                            <div className="platform-stat">285 reseñas</div>
+                                        </div>
+                                        <div className="platform-card" onClick={() => setExpandedPlatform(expandedPlatform === 'trustpilot' ? null : 'trustpilot')}>
+                                            <div className="platform-icon">⭐</div>
+                                            <div className="platform-name">Trustpilot</div>
+                                            <div className="platform-stat">Rating: 4.6 ⭐</div>
+                                            <div className="platform-stat">320 reseñas</div>
+                                        </div>
+                                        <div className="platform-card" onClick={() => setExpandedPlatform(expandedPlatform === 'iherb' ? null : 'iherb')}>
+                                            <div className="platform-icon">🏪</div>
+                                            <div className="platform-name">iHerb</div>
+                                            <div className="platform-stat">Rating: 4.4 ⭐</div>
+                                            <div className="platform-stat">230 reseñas</div>
+                                        </div>
+                                    </div>
+
+                                    {/* Rating Trend Chart */}
+                                    <div className="chart-container">
+                                        <h3 className="section-title">Tendencia de Ratings</h3>
+                                        <ResponsiveContainer width="100%" height={300}>
+                                            <LineChart data={ratingTrendData}>
+                                                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                                                <XAxis dataKey="month" />
+                                                <YAxis domain={[4, 5]} />
+                                                <Tooltip />
+                                                <Line type="monotone" dataKey="rating" stroke="#F59E0B" strokeWidth={2} dot={{ fill: '#F59E0B', r: 4 }} />
+                                            </LineChart>
+                                        </ResponsiveContainer>
+                                    </div>
+
+                                    {/* Sentiment Chart */}
+                                    <div className="chart-container">
+                                        <h3 className="section-title">Sentiment por Categoría</h3>
+                                        <div style={{ overflowX: 'auto' }}>
+                                            <ResponsiveContainer width="100%" height={300}>
+                                                <BarChart data={sentimentData} layout="vertical">
+                                                    <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+                                                    <XAxis type="number" />
+                                                    <YAxis dataKey="category" type="category" width={80} />
+                                                    <Tooltip />
+                                                    <Bar dataKey="positive" fill="#10B981" />
+                                                    <Bar dataKey="neutral" fill="#D1D5DB" />
+                                                    <Bar dataKey="negative" fill="#EF4444" />
+                                                </BarChart>
+                                            </ResponsiveContainer>
+                                        </div>
+                                    </div>
+
+                                    {/* Trending Keywords */}
+                                    <h3 className="section-title">Palabras Clave en Tendencia</h3>
+                                    <div className="chart-container">
+                                        <div className="keyword-pill positive">Delicioso <strong>89</strong></div>
+                                        <div className="keyword-pill positive">Orgánico <strong>76</strong></div>
+                                        <div className="keyword-pill positive">Natural <strong>68</strong></div>
+                                        <div className="keyword-pill positive">Energía <strong>54</strong></div>
+                                        <div className="keyword-pill positive">Detox <strong>48</strong></div>
+                                        <div className="keyword-pill positive">Saludable <strong>45</strong></div>
+                                        <div className="keyword-pill positive">Frescura <strong>42</strong></div>
+                                        <div className="keyword-pill positive">Calidad <strong>38</strong></div>
+                                        <div className="keyword-pill positive">Sabor <strong>35</strong></div>
+                                        <div className="keyword-pill positive">Vitaminas <strong>32</strong></div>
+                                        <div className="keyword-pill positive">Cold-pressed <strong>28</strong></div>
+                                        <div className="keyword-pill positive">Packaging <strong>25</strong></div>
+                                    </div>
+
+                                    {/* Recent Reviews Feed */}
+                                    <h3 className="section-title">Reseñas Recientes</h3>
+                                    <div className="chart-container">
+                                        {reviews.map(review => (
+                                            <div key={review.id} className="review-feed">
+                                                <div className="review-header">
+                                                    <div>
+                                                        <div className="review-name">{review.name} • {review.platform.toUpperCase()}</div>
+                                                        <div className="review-date">{review.date}</div>
+                                                    </div>
+                                                    <div className="review-stars">{'⭐'.repeat(review.rating)}</div>
+                                                </div>
+                                                <div className="review-text">"{review.excerpt}"</div>
+                                                <button className="review-response-btn">Responder</button>
+                                            </div>
                                         ))}
                                     </div>
 
+                                    {/* Reputation Health Score */}
+                                    <h3 className="section-title">Puntuación de Salud de Reputación</h3>
+                                    <div className="grid grid-5">
+                                        <div className="card">
+                                            <div className="card-title">Rating Global</div>
+                                            <div className="card-value">4.6</div>
+                                            <div style={{ fontSize: '11px', color: '#10B981' }}>✓ Excelente</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Tasa Respuesta</div>
+                                            <div className="card-value">78%</div>
+                                            <div style={{ fontSize: '11px', color: '#10B981' }}>✓ Muy Buena</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Sentiment</div>
+                                            <div className="card-value">87%</div>
+                                            <div style={{ fontSize: '11px', color: '#10B981' }}>✓ Positivo</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Vol. Reseñas</div>
+                                            <div className="card-value">1,247</div>
+                                            <div style={{ fontSize: '11px', color: '#10B981' }}>↑ +180 mes</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-title">Calificación</div>
+                                            <div className="card-value" style={{ fontSize: '32px' }}>A+</div>
+                                            <div style={{ fontSize: '11px', color: '#10B981' }}>✓ Óptima</div>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+
+                            {/* TAB 3: CONTENT */}
+                            {activeTab === 2 && (
+                                <>
+                                    {/* Content Type Cards */}
+                                    <h3 className="section-title">Resumen por Tipo</h3>
+                                    <div className="grid grid-4">
+                                        <div className="card">
+                                            <div className="card-icon" style={{ color: '#DC2626' }}>🎬</div>
+                                            <div className="card-title">Reels</div>
+                                            <div className="card-value">48</div>
+                                            <div className="card-detail">Engagement: 8.9%</div>
+                                            <div className="card-trend positive"><IconArrowUp /> 3,240 interacciones</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-icon" style={{ color: '#D97706' }}>📸</div>
+                                            <div className="card-title">Carruseles</div>
+                                            <div className="card-value">32</div>
+                                            <div className="card-detail">Engagement: 6.8%</div>
+                                            <div className="card-trend positive"><IconArrowUp /> 1,820 interacciones</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-icon" style={{ color: '#2563EB' }}>📱</div>
+                                            <div className="card-title">Feed</div>
+                                            <div className="card-value">24</div>
+                                            <div className="card-detail">Engagement: 4.2%</div>
+                                            <div className="card-trend positive"><IconArrowUp /> 608 interacciones</div>
+                                        </div>
+                                        <div className="card">
+                                            <div className="card-icon" style={{ color: '#9333EA' }}>📖</div>
+                                            <div className="card-title">Stories</div>
+                                            <div className="card-value">156</div>
+                                            <div className="card-detail">Vistas: 12.4K</div>
+                                            <div className="card-trend positive"><IconArrowUp /> 64% CTR</div>
+                                        </div>
+                                    </div>
+
+                                    {/* Content Performance Table */}
+                                    <h3 className="section-title">Rendimiento por Tipo</h3>
+                                    <div className="filters">
+                                        {contentTypes.map(type => (
+                                            <button
+                                                key={type}
+                                                className={`filter-btn ${contentFilter === type ? 'active' : ''}`}
+                                                onClick={() => setContentFilter(type)}
+                                            >
+                                                {type === 'todos' ? 'Todos' : type.charAt(0).toUpperCase() + type.slice(1)}
+                                            </button>
+                                        ))}
+                                    </div>
                                     <div className="chart-container">
                                         <div className="table-container">
                                             <table>
                                                 <thead>
                                                     <tr>
                                                         <th>Tipo</th>
-                                                        <th>Título</th>
-                                                        <th>Likes</th>
-                                                        <th>Comentarios</th>
-                                                        <th>Shares</th>
-                                                        <th>Saves</th>
+                                                        <th>Posts</th>
                                                         <th>Engagement</th>
-                                                        <th>Fecha</th>
+                                                        <th>Vistas</th>
+                                                        <th>Likes</th>
+                                                        <th>Compartidos</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {filteredContent.map(item => (
-                                                        <tr key={item.id}>
-                                                            <td><span className="rating-badge">{item.type}</span></td>
-                                                            <td>{item.title}</td>
-                                                            <td>{item.likes.toLocaleString()}</td>
-                                                            <td>{item.comments}</td>
-                                                            <td>{item.shares}</td>
-                                                            <td>{item.saves}</td>
-                                                            <td><span className="rating-badge high">{item.engagement}%</span></td>
-                                                            <td>{item.date}</td>
-                                                        </tr>
-                                                    ))}
+                                                    <tr>
+                                                        <td><span className="badge-small badge-reel">Reel</span></td>
+                                                        <td>48</td>
+                                                        <td>8.9%</td>
+                                                        <td>28,450</td>
+                                                        <td>2,148</td>
+                                                        <td>1,092</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span className="badge-small badge-carousel">Carousel</span></td>
+                                                        <td>32</td>
+                                                        <td>6.8%</td>
+                                                        <td>16,220</td>
+                                                        <td>1,180</td>
+                                                        <td>538</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span className="badge-small badge-feed">Feed</span></td>
+                                                        <td>24</td>
+                                                        <td>4.2%</td>
+                                                        <td>8,960</td>
+                                                        <td>420</td>
+                                                        <td>188</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><span className="badge-small badge-story">Story</span></td>
+                                                        <td>156</td>
+                                                        <td>7.2%</td>
+                                                        <td>12,480</td>
+                                                        <td>156</td>
+                                                        <td>24</td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
 
-                                    <div className="section-title">Top Posts</div>
-                                    <div className="grid grid-2">
-                                        <div className="card">
-                                            <div style={{ background: 'linear-gradient(135deg, #E53935 0%, #FF7043 100%)', height: '150px', borderRadius: '6px', marginBottom: '12px' }}></div>
-                                            <div className="card-title">Detox Challenge</div>
-                                            <div className="card-value">11.3%</div>
-                                            <div className="card-detail">2.1K likes • 287 comentarios</div>
-                                        </div>
-                                        <div className="card">
-                                            <div style={{ background: 'linear-gradient(135deg, #FF9800 0%, #FFC107 100%)', height: '150px', borderRadius: '6px', marginBottom: '12px' }}></div>
-                                            <div className="card-title">Behind the Scenes</div>
-                                            <div className="card-value">9.1%</div>
-                                            <div className="card-detail">1.5K likes • 203 comentarios</div>
-                                        </div>
-                                    </div>
-
-                                    <div className="section-title">Posts de Competencia</div>
-                                    <div className="grid grid-2">
-                                        {competitorPosts.map((post, idx) => (
-                                            <div className="competitor-post" key={idx}>
-                                                <div className="competitor-avatar">{post.brand.charAt(0)}</div>
-                                                <div className="competitor-content">
-                                                    <div className="competitor-name">{post.brand}</div>
-                                                    <div className="competitor-text">{post.content}</div>
-                                                    <div className="competitor-engagement">
-                                                        <span>❤️ {post.engagement}</span>
+                                    {/* Top Posts */}
+                                    <h3 className="section-title">Nuestros Top Posts</h3>
+                                    <div className="top-posts-grid">
+                                        {topPosts.map(post => (
+                                            <div key={post.id} className="post-card">
+                                                <div className="post-image">{post.image}</div>
+                                                <div className="post-content">
+                                                    <div className="post-header">
+                                                        <span className={`badge-small badge-${post.type.toLowerCase()}`}>{post.type}</span>
+                                                        <div className="post-engagement">{post.engagement} interacciones</div>
+                                                    </div>
+                                                    <div className="post-strengths">
+                                                        {post.strengths.map((strength, idx) => (
+                                                            <div key={idx} className="strength-item">
+                                                                <IconCheck /> {strength}
+                                                            </div>
+                                                        ))}
+                                                        <div className="improvement-item">
+                                                            <IconWarning /> {post.weakness}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
+
+                                    {/* Competitor Posts */}
+                                    <h3 className="section-title">Posts de Competencia</h3>
+                                    <div className="competitor-posts-grid">
+                                        {competitorPosts.map((post, idx) => (
+                                            <div key={idx} className="competitor-card">
+                                                <div className="competitor-brand">{post.brand}</div>
+                                                <div style={{ height: '120px', backgroundColor: '#E5E7EB', borderRadius: '4px', marginBottom: '8px' }}></div>
+                                                <div className="competitor-insight">💡 {post.insight}</div>
+                                                <div className="competitor-engagement">{post.engagement} interacciones</div>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </>
                             )}
 
-                            {/* Calendario Tab */}
-                            {activeTab === 'calendario' && (
+                            {/* TAB 4: CALENDAR */}
+                            {activeTab === 3 && (
                                 <>
-                                    <div className="section-title">Calendario de Contenido - Marzo 2026</div>
-                                    <div className="calendar-grid">
-                                        {calendarData.map((day) => (
-                                            <div key={day.day} className="calendar-day">
-                                                <div className="calendar-day-header">{day.day}</div>
-                                                <div>
-                                                    {day.items.map((item, idx) => (
-                                                        <div key={idx} className={`calendar-item ${item.status}`}>
-                                                            {item.title}
-                                                        </div>
-                                                    ))}
+                                    {/* Calendar Navigation */}
+                                    <div className="chart-container">
+                                        <div className="calendar-nav">
+                                            <button className="calendar-nav-btn" onClick={handlePrevMonth}>← Anterior</button>
+                                            <div className="calendar-nav-title">{monthNames[calendarMonth - 1]} {calendarYear}</div>
+                                            <div style={{ display: 'flex', gap: '12px' }}>
+                                                <button className="calendar-nav-btn" onClick={() => { setCalendarMonth(new Date().getMonth() + 1); setCalendarYear(new Date().getFullYear()); }}>Hoy</button>
+                                                <button className="calendar-nav-btn" onClick={handleNextMonth}>Siguiente →</button>
+                                            </div>
+                                        </div>
+
+                                        <div style={{ marginBottom: '20px' }}>
+                                            <button className="add-event-btn">+ Nuevo Evento</button>
+                                        </div>
+
+                                        {/* Calendar Legend */}
+                                        <div style={{ display: 'flex', gap: '20px', marginBottom: '20px', flexWrap: 'wrap', fontSize: '12px' }}>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                <div style={{ width: '20px', height: '20px', backgroundColor: '#DBEAFE', borderRadius: '3px' }}></div> Idea
+                                            </div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                <div style={{ width: '20px', height: '20px', backgroundColor: '#FEF3C7', borderRadius: '3px' }}></div> Borrador
+                                            </div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                <div style={{ width: '20px', height: '20px', backgroundColor: '#ECCA5C', borderRadius: '3px' }}></div> Programado
+                                            </div>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                <div style={{ width: '20px', height: '20px', backgroundColor: '#DCFCE7', borderRadius: '3px' }}></div> Publicado
+                                            </div>
+                                        </div>
+
+                                        {/* Calendar Grid */}
+                                        <div className="calendar-header">
+                                            {['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'].map(day => (
+                                                <div key={day} className="calendar-day-name">{day}</div>
+                                            ))}
+                                        </div>
+
+                                        <div className="calendar-grid">
+                                            {Array.from({ length: firstDay }).map((_, idx) => (
+                                                <div key={`empty-${idx}`} className="calendar-cell empty"></div>
+                                            ))}
+                                            {Array.from({ length: daysInMonth }).map((_, idx) => {
+                                                const day = idx + 1;
+                                                const event = calendarEvents[day];
+                                                return (
+                                                    <div
+                                                        key={day}
+                                                        className={`calendar-cell ${event ? event.type : ''} ${selectedCalendarItem === day ? 'selected' : ''}`}
+                                                        onClick={() => setSelectedCalendarItem(selectedCalendarItem === day ? null : day)}
+                                                    >
+                                                        <div className="calendar-number">{day}</div>
+                                                        {event && <div className="calendar-label">{event.label}</div>}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+
+                                        {/* Pipeline Summary */}
+                                        <div style={{ marginTop: '20px' }}>
+                                            <h4 style={{ fontSize: '12px', fontWeight: '600', color: '#6B7280', marginBottom: '12px', textTransform: 'uppercase' }}>Estado del Pipeline</h4>
+                                            <div className="pipeline-summary">
+                                                <div className="pipeline-item">
+                                                    <div className="pipeline-label">Ideas</div>
+                                                    <div className="pipeline-count">12</div>
+                                                </div>
+                                                <div className="pipeline-item">
+                                                    <div className="pipeline-label">Borradores</div>
+                                                    <div className="pipeline-count">8</div>
+                                                </div>
+                                                <div className="pipeline-item">
+                                                    <div className="pipeline-label">Aprobados</div>
+                                                    <div className="pipeline-count">15</div>
+                                                </div>
+                                                <div className="pipeline-item">
+                                                    <div className="pipeline-label">Programados</div>
+                                                    <div className="pipeline-count">22</div>
+                                                </div>
+                                                <div className="pipeline-item">
+                                                    <div className="pipeline-label">Publicados</div>
+                                                    <div className="pipeline-count">104</div>
                                                 </div>
                                             </div>
-                                        ))}
-                                    </div>
-
-                                    <div className="section-title">Pipeline de Contenido</div>
-                                    <div className="grid grid-4">
-                                        <div className="card">
-                                            <div className="card-title">Ideas</div>
-                                            <div className="card-value">8</div>
-                                            <div className="card-detail">En conceptualización</div>
-                                        </div>
-                                        <div className="card">
-                                            <div className="card-title">Borrador</div>
-                                            <div className="card-value">5</div>
-                                            <div className="card-detail">Esperando revisión</div>
-                                        </div>
-                                        <div className="card">
-                                            <div className="card-title">Aprobado</div>
-                                            <div className="card-value">12</div>
-                                            <div className="card-detail">Listos para publicar</div>
-                                        </div>
-                                        <div className="card">
-                                            <div className="card-title">Programado</div>
-                                            <div className="card-value">15</div>
-                                            <div className="card-detail">En cola de publicación</div>
                                         </div>
                                     </div>
                                 </>
                             )}
 
-                            {/* Inteligencia Tab */}
-                            {activeTab === 'inteligencia' && (
+                            {/* TAB 5: INTELLIGENCE */}
+                            {activeTab === 4 && (
                                 <>
-                                    <div className="section-title">Tendencias del Mercado</div>
-                                    <div className="trend-card">
-                                        <div className="trend-title">📈 Tendencia: Smoothies y Juices</div>
-                                        <div className="trend-stat">
-                                            <div className="trend-item">
-                                                <div className="trend-label">Crecimiento</div>
-                                                <div className="trend-value">+23%</div>
-                                            </div>
-                                            <div className="trend-item">
-                                                <div className="trend-label">Búsquedas</div>
-                                                <div className="trend-value">145K</div>
-                                            </div>
-                                            <div className="trend-item">
-                                                <div className="trend-label">Posts</div>
-                                                <div className="trend-value">8.2K</div>
-                                            </div>
+                                    {/* Insight Cards */}
+                                    <h3 className="section-title">Insights Clave</h3>
+                                    <div className="grid grid-2">
+                                        <div className="insight-card">
+                                            <div className="insight-label">Tendencia</div>
+                                            <div className="insight-title">Video corto domina Q1 2026</div>
+                                            <div className="insight-text">Los Reels están performando 3x mejor que otros formatos. Recomendamos aumentar inversión en contenido de video corto.</div>
+                                        </div>
+                                        <div className="insight-card">
+                                            <div className="insight-label">Insight</div>
+                                            <div className="insight-title">UGC supera branded content</div>
+                                            <div className="insight-text">El contenido generado por usuarios tiene 28% más conversión. Considera ampliar programa de ambassador.</div>
+                                        </div>
+                                        <div className="insight-card">
+                                            <div className="insight-label">Oportunidad</div>
+                                            <div className="insight-title">Wellness Spring 2026</div>
+                                            <div className="insight-text">Oportunidad estacional de primavera. Tendencias en detox y cleanse están en alza. Lanzar campaña en próximas 2 semanas.</div>
+                                        </div>
+                                        <div className="insight-card">
+                                            <div className="insight-label">Plataforma</div>
+                                            <div className="insight-title">Instagram Reels > Stories</div>
+                                            <div className="insight-text">Reels generan 2.5x más alcance que Stories. Recomendamos mantener inversión en Reels consistentemente.</div>
                                         </div>
                                     </div>
 
-                                    <div className="trend-card">
-                                        <div className="trend-title">🌱 Tendencia: Vida Saludable Sostenible</div>
-                                        <div className="trend-stat">
-                                            <div className="trend-item">
-                                                <div className="trend-label">Crecimiento</div>
-                                                <div className="trend-value">+34%</div>
-                                            </div>
-                                            <div className="trend-item">
-                                                <div className="trend-label">Búsquedas</div>
-                                                <div className="trend-value">267K</div>
-                                            </div>
-                                            <div className="trend-item">
-                                                <div className="trend-label">Posts</div>
-                                                <div className="trend-value">12.1K</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="section-title">Hashtags Trending</div>
-                                    <div className="hashtag-cloud">
-                                        {['#OrganicLiving', '#JuiceCleanse', '#HealthyLifestyle', '#WellnessJourney', '#PlantBased', '#CleanEating', '#SuperfoodSmoothie', '#NaturalHealth'].map(tag => (
-                                            <div key={tag} className="hashtag">{tag}</div>
-                                        ))}
-                                    </div>
-
-                                    <div className="section-title">Actividad de Competencia</div>
+                                    {/* Trending Hashtags */}
+                                    <h3 className="section-title">Hashtags en Tendencia</h3>
                                     <div className="chart-container">
+                                        <div className="trending-hashtags">
+                                            {trendingHashtags.map((ht, idx) => (
+                                                <div key={idx} className="hashtag-pill">
+                                                    <div className="hashtag-name">{ht.tag}</div>
+                                                    <div className="hashtag-volume">{(ht.posts / 1000).toFixed(1)}K posts</div>
+                                                    <div className={`hashtag-sentiment ${ht.trend === 'up' ? 'hashtag-trend-up' : 'hashtag-trend-down'}`}>
+                                                        {ht.trend === 'up' ? '📈' : '📉'} {ht.sentiment}%
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    {/* Competitor Activity */}
+                                    <h3 className="section-title">Actividad de Competencia</h3>
+                                    <div className="competitor-activity-chart">
                                         <ResponsiveContainer width="100%" height={300}>
                                             <BarChart data={competitorActivityData}>
                                                 <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-                                                <XAxis dataKey="competitor" />
-                                                <YAxis yAxisId="left" />
-                                                <YAxis yAxisId="right" orientation="right" />
-                                                <Tooltip
-                                                    contentStyle={{ backgroundColor: '#F9FAFB', border: '1px solid #E5E7EB', borderRadius: '8px' }}
-                                                />
+                                                <XAxis dataKey="day" />
+                                                <YAxis />
+                                                <Tooltip />
                                                 <Legend />
-                                                <Bar yAxisId="left" dataKey="posts" fill="#E53935" radius={[8, 8, 0, 0]} />
-                                                <Bar yAxisId="right" dataKey="engagement" fill="#FF9800" radius={[8, 8, 0, 0]} />
+                                                <Bar dataKey="healthco" fill="#3B82F6" name="Health Co" />
+                                                <Bar dataKey="purejuice" fill="#10B981" name="Pure Juice" />
+                                                <Bar dataKey="wellnessco" fill="#F59E0B" name="Wellness Co" />
+                                                <Bar dataKey="naturallife" fill="#8B5CF6" name="Natural Life" />
                                             </BarChart>
                                         </ResponsiveContainer>
                                     </div>
 
-                                    <div className="section-title">Feed de Competencia</div>
-                                    {competitorPosts.map((post, idx) => (
-                                        <div className="competitor-post" key={idx}>
-                                            <div className="competitor-avatar">{post.brand.charAt(0)}</div>
-                                            <div className="competitor-content">
-                                                <div className="competitor-name">{post.brand}</div>
-                                                <div className="competitor-text">{post.content}</div>
-                                                <div className="competitor-engagement">
-                                                    <span>❤️ {post.engagement}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </>
-                            )}
-
-                            {/* Crear Post Tab */}
-                            {activeTab === 'crear' && (
-                                <>
-                                    <div className="section-title">Templates Rápidos</div>
-                                    <div className="template-grid">
+                                    {/* Competitor Feed */}
+                                    <h3 className="section-title">Feed de Competencia</h3>
+                                    <div className="competitor-feed">
                                         {[
-                                            { name: 'Morning Juice Ritual', icon: '🌅' },
-                                            { name: 'Cleanse Challenge', icon: '🌿' },
-                                            { name: 'Product Spotlight', icon: '✨' },
-                                            { name: 'Health Tip', icon: '💡' },
-                                            { name: 'Customer Story', icon: '👥' },
-                                            { name: 'Seasonal Recipe', icon: '🍃' },
-                                        ].map((template, idx) => (
-                                            <div key={idx} className="template-card">
-                                                <div className="template-icon">{template.icon}</div>
-                                                <div className="template-name">{template.name}</div>
+                                            { brand: 'Health Co', engagement: '3,240', insight: 'Estrategia de colaboración efectiva' },
+                                            { brand: 'Pure Juice', engagement: '4,120', insight: 'Buen timing - hora pico de audiencia' },
+                                            { brand: 'Wellness Co', engagement: '2,890', insight: 'Aprovecha tendencia de spring detox' },
+                                            { brand: 'Natural Life', engagement: '3,560', insight: 'Contenido educativo con alto engagement' },
+                                        ].map((item, idx) => (
+                                            <div key={idx} className="competitor-feed-item">
+                                                <div className="competitor-feed-header">
+                                                    <div className="comp-feed-brand">{item.brand}</div>
+                                                    <div className="comp-feed-engagement">{item.engagement} interacciones</div>
+                                                </div>
+                                                <div style={{ height: '80px', backgroundColor: '#E5E7EB', borderRadius: '4px', marginBottom: '8px' }}></div>
+                                                <div className="comp-feed-insight">💡 {item.insight}</div>
                                             </div>
                                         ))}
                                     </div>
 
-                                    <div className="section-title">Crear Contenido</div>
-                                    <div className="chart-container">
-                                        <label style={{ display: 'block', marginBottom: '12px' }}>
-                                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1B2A4A' }}>Tipo de Post</span>
-                                            <select className="selector-input">
-                                                <option>Selecciona un tipo de post</option>
-                                                <option>Reel</option>
-                                                <option>Carousel</option>
-                                                <option>Feed Post</option>
-                                                <option>Story</option>
-                                            </select>
-                                        </label>
-
-                                        <label style={{ display: 'block', marginBottom: '12px' }}>
-                                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1B2A4A' }}>Pilar de Contenido</span>
-                                            <select className="selector-input">
-                                                <option>Selecciona un pilar</option>
-                                                <option>Wellness</option>
-                                                <option>Recetas</option>
-                                                <option>Producto</option>
-                                                <option>Educación</option>
-                                                <option>Comunidad</option>
-                                            </select>
-                                        </label>
-
-                                        <label style={{ display: 'block', marginBottom: '16px' }}>
-                                            <span style={{ fontSize: '13px', fontWeight: '600', color: '#1B2A4A', display: 'block', marginBottom: '8px' }}>Descripción</span>
-                                            <textarea
-                                                className="selector-input"
-                                                style={{ minHeight: '100px', fontFamily: 'Inter, sans-serif' }}
-                                                placeholder="Describe tu idea de contenido..."
-                                            />
-                                        </label>
-
-                                        <div className="section-title" style={{ marginBottom: '16px' }}>Generador de Imágenes IA</div>
-                                        <div className="upload-area">
-                                            <div className="upload-icon">🎨</div>
-                                            <div className="upload-text">Usa IA para generar imágenes con Freepik</div>
-                                            <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '8px' }}>Describe la imagen que deseas</div>
-                                        </div>
+                                    {/* Comparative Analysis */}
+                                    <h3 className="section-title">Análisis Comparativo</h3>
+                                    <div className="comparative-analysis">
+                                        {comparativeData.map((item, idx) => (
+                                            <div key={idx} className={`comparative-card ${item.name === 'Pomona' ? 'us' : ''}`}>
+                                                <div className="comp-brand">{item.name}</div>
+                                                <div className="comp-metric">
+                                                    <span className="comp-label">Seguidores</span>
+                                                    <span className="comp-value">{item.followers}</span>
+                                                </div>
+                                                <div className="comp-metric">
+                                                    <span className="comp-label">Engagement</span>
+                                                    <span className="comp-value">{item.engagement}</span>
+                                                </div>
+                                                <div className="comp-metric">
+                                                    <span className="comp-label">Rating</span>
+                                                    <span className="comp-value">{item.rating}</span>
+                                                </div>
+                                                <div className="comp-metric">
+                                                    <span className="comp-label">Reseñas</span>
+                                                    <span className="comp-value">{item.reviews}</span>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
                                 </>
                             )}
 
-                            {/* Media Library Tab */}
-                            {activeTab === 'media' && (
+                            {/* TAB 6: CREATE POST */}
+                            {activeTab === 5 && (
                                 <>
-                                    <div className="section-title">Media Library</div>
+                                    {/* Freepik Card */}
+                                    <div className="freepik-card">
+                                        <input
+                                            type="text"
+                                            className="freepik-input"
+                                            placeholder="Ingresa tu API key de Freepik"
+                                            value={freepikApiKey}
+                                            onChange={(e) => setFreepikApiKey(e.target.value)}
+                                        />
+                                        <button className="btn btn-primary" style={{ marginRight: '12px' }}>Conectar</button>
+                                        <div className="freepik-badge">Freepik Desconectado</div>
+                                    </div>
+
+                                    {/* Templates */}
+                                    <h3 className="section-title">Plantillas Rápidas</h3>
+                                    <div className="template-grid">
+                                        {['Morning Juice Ritual', 'Cleanse Challenge', 'Product Spotlight', 'Health Tip', 'Customer Story', 'Seasonal Recipe'].map((template, idx) => (
+                                            <div key={idx} className="template-card">
+                                                <div className="template-icon">📋</div>
+                                                <div className="template-name">{template}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    {/* Two Column Layout */}
+                                    <div className="two-column-layout">
+                                        {/* LEFT COLUMN: Content Editor */}
+                                        <div>
+                                            <h4 className="column-title">Editor de Contenido</h4>
+
+                                            <label className="selector-label">Tipo de Post</label>
+                                            <div className="post-type-selector">
+                                                {['Feed', 'Reel', 'Carousel', 'Story'].map(type => (
+                                                    <button
+                                                        key={type}
+                                                        className={`post-type-btn ${selectedPostType === type ? 'active' : ''}`}
+                                                        onClick={() => setSelectedPostType(type)}
+                                                    >
+                                                        {type}
+                                                    </button>
+                                                ))}
+                                            </div>
+
+                                            <label className="selector-label">Pilar de Contenido</label>
+                                            <div className="pilar-pills">
+                                                {pillars.map(pilar => (
+                                                    <button
+                                                        key={pilar}
+                                                        className={`pilar-pill ${selectedPilar === pilar ? 'active' : ''}`}
+                                                        onClick={() => setSelectedPilar(pilar)}
+                                                    >
+                                                        {pilar}
+                                                    </button>
+                                                ))}
+                                            </div>
+
+                                            <label className="selector-label">Descripción (2,200 caracteres máx)</label>
+                                            <textarea
+                                                className="textarea-field"
+                                                placeholder="Escribe tu descripción aquí..."
+                                                value={caption}
+                                                onChange={(e) => setCaption(e.target.value.slice(0, 2200))}
+                                                rows="6"
+                                            ></textarea>
+                                            <div className={`char-counter ${caption.length > 2100 ? 'warning' : ''} ${caption.length > 2150 ? 'danger' : ''}`}>
+                                                {caption.length}/2,200
+                                            </div>
+
+                                            <label className="selector-label">Hashtags Recomendados</label>
+                                            <div style={{ padding: '12px', backgroundColor: '#F9FAFB', borderRadius: '6px', fontSize: '12px', color: '#6B7280', marginBottom: '16px' }}>
+                                                #JuiceCleanse #OrganicLife #WellnessJourney #ColdPressed #HealthyLiving
+                                            </div>
+                                        </div>
+
+                                        {/* RIGHT COLUMN: Image Generator */}
+                                        <div>
+                                            <h4 className="column-title">Generador de Imagen</h4>
+
+                                            <label className="selector-label">Motor AI</label>
+                                            <div className="motor-selector">
+                                                {motors.map(motor => (
+                                                    <div
+                                                        key={motor.name}
+                                                        className={`motor-option ${selectedMotor === motor.name ? 'active' : ''}`}
+                                                        onClick={() => setSelectedMotor(motor.name)}
+                                                    >
+                                                        <div className="motor-name">{motor.name}</div>
+                                                        <div className="motor-desc">{motor.desc}</div>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            <label className="selector-label">Formato</label>
+                                            <div className="formato-selector">
+                                                {formatos.map(formato => (
+                                                    <button
+                                                        key={formato}
+                                                        className={`formato-option ${selectedFormato === formato ? 'active' : ''}`}
+                                                        onClick={() => setSelectedFormato(formato)}
+                                                    >
+                                                        {formato}
+                                                    </button>
+                                                ))}
+                                            </div>
+
+                                            <label className="selector-label">Prompt de Imagen</label>
+                                            <textarea
+                                                className="textarea-field"
+                                                placeholder="Describe la imagen que deseas generar..."
+                                                value={imagePrompt}
+                                                onChange={(e) => setImagePrompt(e.target.value)}
+                                                rows="6"
+                                            ></textarea>
+
+                                            <button className="btn btn-primary" style={{ width: '100%' }}>Generar con Freepik AI</button>
+
+                                            <div className="mobile-preview">
+                                                <div className="mobile-mockup">
+                                                    {imagePrompt ? 'Vista Previa' : 'Imagen Generada'}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Summary */}
+                                    <h3 className="section-title">Resumen del Post</h3>
+                                    <div className="summary-table">
+                                        <tr>
+                                            <td>Tipo</td>
+                                            <td>{selectedPostType}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pilar</td>
+                                            <td>{selectedPilar}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Motor AI</td>
+                                            <td>{selectedMotor}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Formato</td>
+                                            <td>{selectedFormato}</td>
+                                        </tr>
+                                    </div>
+
+                                    {/* Action Buttons */}
+                                    <div className="action-buttons">
+                                        <button className="btn btn-secondary">Guardar Borrador</button>
+                                        <button className="btn btn-primary">Programar Post</button>
+                                    </div>
+                                </>
+                            )}
+
+                            {/* TAB 7: MEDIA LIBRARY */}
+                            {activeTab === 6 && (
+                                <>
+                                    {/* Media Header */}
+                                    <div className="media-header">
+                                        <input
+                                            type="text"
+                                            className="search-input"
+                                            placeholder="Buscar en la librería..."
+                                            value={mediaSearchQuery}
+                                            onChange={(e) => setMediaSearchQuery(e.target.value)}
+                                        />
+                                        <div style={{ display: 'flex', gap: '8px' }}>
+                                            <button className="btn btn-secondary">Subir Fotos</button>
+                                            <button className="btn btn-primary">Generar con Freepik</button>
+                                        </div>
+                                        <div className="view-toggle">
+                                            <button className={`view-btn ${mediaViewMode === 'grid' ? 'active' : ''}`} onClick={() => setMediaViewMode('grid')}>⊞</button>
+                                            <button className={`view-btn ${mediaViewMode === 'list' ? 'active' : ''}`} onClick={() => setMediaViewMode('list')}>≡</button>
+                                        </div>
+                                    </div>
+
+                                    {/* Category Filter */}
                                     <div className="filters">
-                                        {['Todos', 'Productos', 'Recetas', 'Lifestyle', 'Ingredientes'].map(filter => (
+                                        {mediaCategories.map(category => (
                                             <button
-                                                key={filter}
-                                                className={`filter-btn ${mediaFilter === filter ? 'active' : ''}`}
-                                                onClick={() => setMediaFilter(filter)}
+                                                key={category}
+                                                className={`filter-btn ${mediaFilter === category ? 'active' : ''}`}
+                                                onClick={() => setMediaFilter(category)}
                                             >
-                                                {filter}
+                                                {category === 'todos' ? 'Todos' : category.charAt(0).toUpperCase() + category.slice(1)}
                                             </button>
                                         ))}
                                     </div>
 
-                                    <div style={{ marginBottom: '24px', display: 'flex', gap: '12px' }}>
-                                        <button className="filter-btn" style={{ background: 'white', border: '1px solid #E5E7EB', cursor: 'pointer', flex: 1 }}>📤 Subir Contenido</button>
-                                        <button className="filter-btn" style={{ background: 'white', border: '1px solid #E5E7EB', cursor: 'pointer', flex: 1 }}>✨ Generar con IA</button>
-                                    </div>
-
-                                    <div className="upload-area" style={{ marginBottom: '24px' }}>
-                                        <div className="upload-icon">📸</div>
-                                        <div className="upload-text">Arrastra imágenes aquí o haz clic para subir</div>
-                                        <div style={{ fontSize: '12px', color: '#9CA3AF', marginTop: '8px' }}>Soporta JPG, PNG, GIF</div>
-                                    </div>
-
+                                    {/* Media Grid */}
                                     <div className="media-grid">
-                                        {[
-                                            { name: 'Pomona Detox', cat: 'Productos' },
-                                            { name: 'Juice Smoothie', cat: 'Recetas' },
-                                            { name: 'Morning Ritual', cat: 'Lifestyle' },
-                                            { name: 'Ingredient Mix', cat: 'Ingredientes' },
-                                            { name: 'Product Shot', cat: 'Productos' },
-                                            { name: 'Fresh Juice', cat: 'Recetas' },
-                                            { name: 'Wellness', cat: 'Lifestyle' },
-                                            { name: 'Organic Fruits', cat: 'Ingredientes' },
-                                        ].map((item, idx) => (
-                                            <div key={idx} className="media-item">
-                                                <div style={{ background: `linear-gradient(135deg, ${COLORS[idx % COLORS.length]} 0%, ${COLORS[(idx + 1) % COLORS.length]} 100%)`, width: '100%', height: '100%' }}></div>
-                                                <div className="media-overlay">
-                                                    <div style={{ textAlign: 'center' }}>
-                                                        <div style={{ fontSize: '24px', marginBottom: '8px' }}>👁️</div>
-                                                        <div style={{ fontSize: '12px', fontWeight: '600' }}>{item.name}</div>
+                                        {filteredMedia.map(item => (
+                                            <div key={item.id} className="media-item">
+                                                <div className="media-thumb">{item.title}</div>
+                                                <div className="media-info">
+                                                    <div className="media-title">{item.title}</div>
+                                                    <div>
+                                                        <span className={`media-category category-${item.category}`}>
+                                                            {item.category.charAt(0).toUpperCase() + item.category.slice(1)}
+                                                        </span>
+                                                    </div>
+                                                    <div className="media-footer">
+                                                        <span style={{ fontSize: '10px', color: '#9CA3AF' }}>{item.date}</span>
+                                                        <span className="media-usage">{item.usage}x usado</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1614,148 +2539,66 @@
                                 </>
                             )}
 
-                            {/* E-commerce Tab */}
-                            {activeTab === 'ecommerce' && (
+                            {/* TAB 8: E-COMMERCE */}
+                            {activeTab === 7 && (
                                 <>
-                                    <div className="section-title">Canales de Venta</div>
-                                    <div className="ecommerce-channels">
-                                        <div className="channel-card">
-                                            <div className="channel-header">
-                                                <div>
-                                                    <div className="channel-name">🛒 Amazon</div>
-                                                    <div className="reviews-count">892 reseñas</div>
-                                                </div>
-                                                <div className="channel-icon">📦</div>
+                                    <h3 className="section-title">Canales de Venta</h3>
+                                    <div className="grid grid-4">
+                                        {ecommerceChannels.map((channel, idx) => (
+                                            <div key={idx} className="card">
+                                                <div className="card-icon" style={{ fontSize: '28px' }}>{channel.icon}</div>
+                                                <div className="card-title">{channel.name}</div>
+                                                <div className="card-value" style={{ fontSize: '20px' }}>{channel.sales}</div>
+                                                <div className="card-detail positive">↑ {channel.growth}</div>
+                                                <div className="card-detail">{channel.orders} órdenes</div>
                                             </div>
-                                            <div className="rating-large">4.5/5.0</div>
-                                            <div className="channel-stat">
-                                                <span className="channel-stat-label">Top Producto</span>
-                                                <span className="channel-stat-value">Pomona Detox</span>
-                                            </div>
-                                            <div className="channel-stat">
-                                                <span className="channel-stat-label">Órdenes/Mes</span>
-                                                <span className="channel-stat-value">~2.8K</span>
-                                            </div>
-                                            <div style={{ marginTop: '12px' }}>
-                                                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '8px' }}>Sentimiento</div>
-                                                <div className="sentiment-bar">
-                                                    <div className="sentiment-fill" style={{ width: '90%' }}></div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="channel-card">
-                                            <div className="channel-header">
-                                                <div>
-                                                    <div className="channel-name">🌐 Website Direct</div>
-                                                    <div className="reviews-count">198 reseñas</div>
-                                                </div>
-                                                <div className="channel-icon">💻</div>
-                                            </div>
-                                            <div className="rating-large">4.7/5.0</div>
-                                            <div className="channel-stat">
-                                                <span className="channel-stat-label">Top Producto</span>
-                                                <span className="channel-stat-value">Green Juice Pro</span>
-                                            </div>
-                                            <div className="channel-stat">
-                                                <span className="channel-stat-label">Órdenes/Mes</span>
-                                                <span className="channel-stat-value">~1.5K</span>
-                                            </div>
-                                            <div style={{ marginTop: '12px' }}>
-                                                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '8px' }}>Sentimiento</div>
-                                                <div className="sentiment-bar">
-                                                    <div className="sentiment-fill" style={{ width: '94%' }}></div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="channel-card">
-                                            <div className="channel-header">
-                                                <div>
-                                                    <div className="channel-name">🛍️ Walmart</div>
-                                                    <div className="reviews-count">445 reseñas</div>
-                                                </div>
-                                                <div className="channel-icon">🏬</div>
-                                            </div>
-                                            <div className="rating-large">4.4/5.0</div>
-                                            <div className="channel-stat">
-                                                <span className="channel-stat-label">Top Producto</span>
-                                                <span className="channel-stat-value">Pomona Supplements</span>
-                                            </div>
-                                            <div className="channel-stat">
-                                                <span className="channel-stat-label">Órdenes/Mes</span>
-                                                <span className="channel-stat-value">~1.2K</span>
-                                            </div>
-                                            <div style={{ marginTop: '12px' }}>
-                                                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '8px' }}>Sentimiento</div>
-                                                <div className="sentiment-bar">
-                                                    <div className="sentiment-fill medium" style={{ width: '86%' }}></div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="channel-card">
-                                            <div className="channel-header">
-                                                <div>
-                                                    <div className="channel-name">🎯 Target</div>
-                                                    <div className="reviews-count">267 reseñas</div>
-                                                </div>
-                                                <div className="channel-icon">🏪</div>
-                                            </div>
-                                            <div className="rating-large">4.3/5.0</div>
-                                            <div className="channel-stat">
-                                                <span className="channel-stat-label">Top Producto</span>
-                                                <span className="channel-stat-value">Wellness Bundle</span>
-                                            </div>
-                                            <div className="channel-stat">
-                                                <span className="channel-stat-label">Órdenes/Mes</span>
-                                                <span className="channel-stat-value">~890</span>
-                                            </div>
-                                            <div style={{ marginTop: '12px' }}>
-                                                <div style={{ fontSize: '12px', color: '#6B7280', marginBottom: '8px' }}>Sentimiento</div>
-                                                <div className="sentiment-bar">
-                                                    <div className="sentiment-fill" style={{ width: '84%' }}></div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        ))}
                                     </div>
 
-                                    <div className="section-title">Resumen de Ventas</div>
-                                    <div className="grid grid-4">
-                                        <div className="card">
-                                            <div className="card-title">Ingresos Totales</div>
-                                            <div className="card-value">$156K</div>
-                                            <div className="card-detail positive">+18% este mes</div>
+                                    <h3 className="section-title">Resumen de Ventas</h3>
+                                    <div className="chart-container">
+                                        <div className="grid grid-2">
+                                            <div>
+                                                <div style={{ fontSize: '12px', fontWeight: '600', color: '#6B7280', marginBottom: '8px', textTransform: 'uppercase' }}>Total Ventas Mes</div>
+                                                <div style={{ fontSize: '32px', fontWeight: '700', color: '#1B2A4A' }}>$33,250</div>
+                                                <div style={{ fontSize: '12px', color: '#10B981', marginTop: '4px' }}>↑ 18% vs mes anterior</div>
+                                            </div>
+                                            <div>
+                                                <div style={{ fontSize: '12px', fontWeight: '600', color: '#6B7280', marginBottom: '8px', textTransform: 'uppercase' }}>Órdenes Totales</div>
+                                                <div style={{ fontSize: '32px', fontWeight: '700', color: '#1B2A4A' }}>723</div>
+                                                <div style={{ fontSize: '12px', color: '#10B981', marginTop: '4px' }}>↑ 145 órdenes más</div>
+                                            </div>
                                         </div>
-                                        <div className="card">
-                                            <div className="card-title">Órdenes</div>
-                                            <div className="card-value">6.4K</div>
-                                            <div className="card-detail">Este mes</div>
-                                        </div>
-                                        <div className="card">
-                                            <div className="card-title">AOV</div>
-                                            <div className="card-value">$24.38</div>
-                                            <div className="card-detail">Valor promedio</div>
-                                        </div>
-                                        <div className="card">
-                                            <div className="card-title">Tasa Conversión</div>
-                                            <div className="card-value">3.2%</div>
-                                            <div className="card-detail positive">+0.5% vs anterior</div>
-                                        </div>
+
+                                        <h4 style={{ fontSize: '14px', fontWeight: '700', color: '#1B2A4A', marginTop: '24px', marginBottom: '12px' }}>Distribución por Canal</h4>
+                                        <ResponsiveContainer width="100%" height={300}>
+                                            <PieChart>
+                                                <Pie data={[
+                                                    { name: 'Amazon', value: 37 },
+                                                    { name: 'Website', value: 27 },
+                                                    { name: 'iHerb', value: 19 },
+                                                    { name: 'Trustpilot', value: 17 },
+                                                ]} cx="50%" cy="50%" labelLine={false} label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`} outerRadius={100} fill="#8884d8" dataKey="value">
+                                                    <Cell fill="#E53935" />
+                                                    <Cell fill="#3B82F6" />
+                                                    <Cell fill="#10B981" />
+                                                    <Cell fill="#F59E0B" />
+                                                </Pie>
+                                                <Tooltip />
+                                            </PieChart>
+                                        </ResponsiveContainer>
                                     </div>
                                 </>
                             )}
                         </div>
                     </div>
-
-                    <footer className="footer">
-                        Pomona Platform • Brand Management Suite • Built by Paradise.ia • Mar 2026
-                    </footer>
                 </>
             );
         }
 
-        ReactDOM.createRoot(document.getElementById('root')).render(<PomatonaApp />);
+        // Render
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
